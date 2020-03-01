@@ -9,3 +9,12 @@ It has 5 main services.
   3. Customer Service - For CRUD Customers.
   4. Transaction Service - For all the Trades.
   5. Report Service - For Produce Reports.
+
+-----------------------------------------------
+
+DB
+  1. Store: id, branchName, address
+  2. Goods: id, name, price, type
+  3. Customer: id, name, sex, age
+  4. Transaction: id, customerId, storeId, totalPrice
+  5. TransactionItem: id, transactionId, goodsId, number, price
