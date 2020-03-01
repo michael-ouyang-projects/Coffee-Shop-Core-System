@@ -17,22 +17,6 @@ public class TradeResponse {
 		this.id = id;
 	}
 
-	public String getCustomerName() {
-		return customerName;
-	}
-
-	public void setCustomerName(String customerName) {
-		this.customerName = customerName;
-	}
-
-	public String getStoreBranchName() {
-		return storeBranchName;
-	}
-
-	public void setStoreBranchName(String storeBranchName) {
-		this.storeBranchName = storeBranchName;
-	}
-
 	public BigDecimal getTotalPrice() {
 		return totalPrice;
 	}

@@ -8,23 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ouyang.goods.GoodsRepository;
-import com.ouyang.store.StoreRepository;
-
 @Service
 public class TransactionService {
 
 	@Autowired
 	private TransactionRepository trasactionRepository;
-
-	@Autowired
-	private TransactionItemRepository transactionItemRepository;
-
-	@Autowired
-	private StoreRepository storeRepository;
-
-	@Autowired
-	private GoodsRepository goodsRepository;
 
 	@Transactional(rollbackFor = Exception.class)
 	public TradeResponse trade(TradeRequest tradeRequest) {
@@ -32,24 +20,28 @@ public class TransactionService {
 		Transaction transaction = new Transaction();
 		transaction.setStoreId(tradeRequest.getStoreId());
 		transaction.setCustomerId(tradeRequest.getCustomerId());
-		List<TransactionItem> trasactionItems = this.getTrasactionItems(tradeRequest.getItems());
+		List<TransactionItem> trasactionItems = this.getTrasactionItems(transaction, tradeRequest.getItems());
 		transaction.setTotalPrice(this.getTotalPrice(trasactionItems));
-		Long transactionId = trasactionRepository.save(transaction).getId();
-
-		// TODO
+		transaction.setItems(trasactionItems);
+		transaction = trasactionRepository.save(transaction);
 
 		TradeResponse tradeResponse = new TradeResponse();
+		tradeResponse.setId(transaction.getId());
+		tradeResponse.setTotalPrice(transaction.getTotalPrice());
+		tradeResponse.setItems(this.getItemResponseList(transaction.getItems()));
+		
 		return tradeResponse;
 
 	}
 
-	private List<TransactionItem> getTrasactionItems(List<ItemRequest> items) {
+	private List<TransactionItem> getTrasactionItems(Transaction transaction, List<ItemRequest> itemRequestList) {
 
 		List<TransactionItem> trasactionItems = new ArrayList<>();
 
-		for (ItemRequest itemRequest : items) {
+		for (ItemRequest itemRequest : itemRequestList) {
 
 			TransactionItem transactionItem = new TransactionItem();
+			transactionItem.setTransaction(transaction);
 			transactionItem.setGoodsId(itemRequest.getGoodsId());
 			transactionItem.setNumber(itemRequest.getNumber());
 			transactionItem.setPrice(BigDecimal.ONE);
@@ -62,10 +54,29 @@ public class TransactionService {
 
 	}
 
-	private BigDecimal getTotalPrice(List<TransactionItem> trasactionItems) {
+	private BigDecimal getTotalPrice(List<TransactionItem> transactionItems) {
 
-		return trasactionItems.stream().map(TransactionItem::getPrice).reduce(BigDecimal::add).get();
+		return transactionItems.stream().map(TransactionItem::getPrice).reduce(BigDecimal::add).get();
 
+	}
+	
+	private List<ItemResponse> getItemResponseList(List<TransactionItem> transactionItems) {
+		
+		List<ItemResponse> itemResponseList = new ArrayList<>();
+		
+		for (TransactionItem transactionItem : transactionItems) {
+
+			ItemResponse itemResponse = new ItemResponse();
+			itemResponse.setGoodsName("test name");
+			itemResponse.setNumber(transactionItem.getNumber());
+			itemResponse.setPrice(transactionItem.getPrice());
+
+			itemResponseList.add(itemResponse);
+
+		}
+		
+		return itemResponseList;
+		
 	}
 
 }

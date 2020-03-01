@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class TransactionItem {
@@ -13,7 +15,9 @@ public class TransactionItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private Long transactionId;
+	@ManyToOne(targetEntity = Transaction.class)
+	@JoinColumn(name = "TRANSACTIONID")
+	private Transaction transaction;
 	private Long goodsId;
 	private Integer number;
 	private BigDecimal price;
@@ -26,12 +30,12 @@ public class TransactionItem {
 		this.id = id;
 	}
 
-	public Long getTransactionId() {
-		return transactionId;
+	public Transaction getTransaction() {
+		return transaction;
 	}
 
-	public void setTransactionId(Long transactionId) {
-		this.transactionId = transactionId;
+	public void setTransaction(Transaction transaction) {
+		this.transaction = transaction;
 	}
 
 	public Long getGoodsId() {

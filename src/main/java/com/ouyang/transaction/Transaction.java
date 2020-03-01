@@ -1,11 +1,14 @@
 package com.ouyang.transaction;
 
 import java.math.BigDecimal;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Transaction {
@@ -16,6 +19,8 @@ public class Transaction {
 	private Long customerId;
 	private Long storeId;
 	private BigDecimal totalPrice;
+	@OneToMany(targetEntity = TransactionItem.class, mappedBy = "transactionId", cascade = CascadeType.ALL)
+	private List<TransactionItem> items;
 
 	public Long getId() {
 		return id;
@@ -47,6 +52,14 @@ public class Transaction {
 
 	public void setTotalPrice(BigDecimal totalPrice) {
 		this.totalPrice = totalPrice;
+	}
+
+	public List<TransactionItem> getItems() {
+		return items;
+	}
+
+	public void setItems(List<TransactionItem> items) {
+		this.items = items;
 	}
 
 }
