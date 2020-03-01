@@ -8,18 +8,18 @@ import org.springframework.transaction.annotation.Transactional;
 public class StoreService {
 	
 	@Autowired
-	private StoreDao storeDao;
+	private StoreRepository storeRepository;
 	
 	@Transactional(rollbackFor = Exception.class)
 	public void createStore(Store store) {
 		
-		storeDao.createStore(store);
+		storeRepository.save(store);
 		
 	}
 	
-	public Store queryStoreByName(String storeName) {
+	public Store queryStoreByName(String branchName) {
 		
-		return storeDao.queryStoreByName(storeName);
+		return storeRepository.findByBranchName(branchName);
 		
 	}
 	

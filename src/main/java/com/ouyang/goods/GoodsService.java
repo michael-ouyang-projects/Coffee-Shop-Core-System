@@ -1,7 +1,5 @@
 package com.ouyang.goods;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,11 +7,11 @@ import org.springframework.stereotype.Service;
 public class GoodsService {
 
 	@Autowired
-	private GoodsDao goodsDao;
+	private GoodsRepository goodsRepository;
 	
-	public List<Goods> queryGoodsByBranch(String id) {
+	public Goods queryGoodsByName(String goodsName) {
 		
-		return goodsDao.queryGoodsByBranch(id);
+		return goodsRepository.findByName(goodsName);
 		
 	}
 	

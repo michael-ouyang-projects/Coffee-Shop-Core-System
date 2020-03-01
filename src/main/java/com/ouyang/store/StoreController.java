@@ -21,10 +21,10 @@ public class StoreController {
 
 	}
 
-	@GetMapping("/store/query/{storeName}")
-	public Store queryStoreByName(@PathVariable("storeName") String storeName) {
+	@GetMapping("/store/{branchName}")
+	public Store queryStoreByName(@PathVariable("branchName") String branchName) {
 
-		return storeService.queryStoreByName(storeName);
+		return storeService.queryStoreByName(branchName);
 
 	}
 
