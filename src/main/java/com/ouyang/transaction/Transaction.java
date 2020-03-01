@@ -19,7 +19,7 @@ public class Transaction {
 	private Long customerId;
 	private Long storeId;
 	private BigDecimal totalPrice;
-	@OneToMany(targetEntity = TransactionItem.class, mappedBy = "transactionId", cascade = CascadeType.ALL)
+	@OneToMany(targetEntity = TransactionItem.class, mappedBy = "transaction", cascade = CascadeType.ALL)
 	private List<TransactionItem> items;
 
 	public Long getId() {
