@@ -1,6 +1,6 @@
 package com.ouyang.transaction.object;
 
-public class ItemRequest {
+public class RequestItem {
 
 	private Long goodsId;
 	private Integer number;

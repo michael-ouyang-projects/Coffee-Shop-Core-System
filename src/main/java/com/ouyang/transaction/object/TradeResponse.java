@@ -7,7 +7,7 @@ public class TradeResponse {
 
 	private Long id;
 	private BigDecimal totalPrice;
-	private List<ItemResponse> items;
+	private List<ResponseItem> items;
 
 	public Long getId() {
 		return id;
@@ -25,11 +25,11 @@ public class TradeResponse {
 		this.totalPrice = totalPrice;
 	}
 
-	public List<ItemResponse> getItems() {
+	public List<ResponseItem> getItems() {
 		return items;
 	}
 
-	public void setItems(List<ItemResponse> items) {
+	public void setItems(List<ResponseItem> items) {
 		this.items = items;
 	}
 

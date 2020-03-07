@@ -9,8 +9,8 @@ VALUES
 INSERT INTO goods (id, name, price, type) 
 VALUES
   (1, 'Borden Milk', 4, 'food'),
-  (2, 'Organic Valley Milk', 3.5, 'food'),
-  (3, 'Margherita Pizza', 2.5, 'food'),
+  (2, 'Organic Valley Milk', 3, 'food'),
+  (3, 'Margherita Pizza', 6, 'food'),
   (4, 'Levis Jeans', 10, 'clothes'),
   (5, 'Calvin Klein Underwear', 12, 'clothes');
 

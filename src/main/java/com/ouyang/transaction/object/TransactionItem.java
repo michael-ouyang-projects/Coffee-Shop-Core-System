@@ -19,8 +19,9 @@ public class TransactionItem {
 	@JoinColumn(name = "TRANSACTIONID")
 	private Transaction transaction;
 	private Long goodsId;
-	private Integer number;
-	private BigDecimal price;
+	private String goodsName;
+	private Integer goodsNumber;
+	private BigDecimal goodsPrice;
 
 	public Long getId() {
 		return id;
@@ -46,20 +47,28 @@ public class TransactionItem {
 		this.goodsId = goodsId;
 	}
 
-	public Integer getNumber() {
-		return number;
+	public String getGoodsName() {
+		return goodsName;
 	}
 
-	public void setNumber(Integer number) {
-		this.number = number;
+	public void setGoodsName(String goodsName) {
+		this.goodsName = goodsName;
 	}
 
-	public BigDecimal getPrice() {
-		return price;
+	public Integer getGoodsNumber() {
+		return goodsNumber;
 	}
 
-	public void setPrice(BigDecimal price) {
-		this.price = price;
+	public void setGoodsNumber(Integer goodsNumber) {
+		this.goodsNumber = goodsNumber;
+	}
+
+	public BigDecimal getGoodsPrice() {
+		return goodsPrice;
+	}
+
+	public void setGoodsPrice(BigDecimal goodsPrice) {
+		this.goodsPrice = goodsPrice;
 	}
 
 }

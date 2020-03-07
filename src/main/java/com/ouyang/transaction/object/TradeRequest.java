@@ -6,7 +6,7 @@ public class TradeRequest {
 
 	private Long customerId;
 	private Long storeId;
-	private List<ItemRequest> items;
+	private List<RequestItem> items;
 
 	public Long getCustomerId() {
 		return customerId;
@@ -24,11 +24,11 @@ public class TradeRequest {
 		this.storeId = storeId;
 	}
 
-	public List<ItemRequest> getItems() {
+	public List<RequestItem> getItems() {
 		return items;
 	}
 
-	public void setItems(List<ItemRequest> items) {
+	public void setItems(List<RequestItem> items) {
 		this.items = items;
 	}
 

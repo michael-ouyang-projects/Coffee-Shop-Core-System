@@ -2,7 +2,7 @@ package com.ouyang.transaction.object;
 
 import java.math.BigDecimal;
 
-public class ItemResponse {
+public class ResponseItem {
 
 	private String goodsName;
 	private Integer number;
