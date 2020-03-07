@@ -8,6 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ouyang.transaction.object.ItemRequest;
+import com.ouyang.transaction.object.ItemResponse;
+import com.ouyang.transaction.object.TradeRequest;
+import com.ouyang.transaction.object.TradeResponse;
+import com.ouyang.transaction.object.Transaction;
+import com.ouyang.transaction.object.TransactionItem;
+
 @Service
 public class TransactionService {
 

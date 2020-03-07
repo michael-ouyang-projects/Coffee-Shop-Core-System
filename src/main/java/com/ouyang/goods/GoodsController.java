@@ -11,10 +11,10 @@ public class GoodsController {
 	@Autowired
 	private GoodsService goodsService;
 	
-	@GetMapping("/goods/{goodsName}")
-	public Goods queryGoodsByName(@PathVariable("goodsName") String goodsName) {
+	@GetMapping("/goods/{id}")
+	public Goods queryGoodsById(@PathVariable("id") Long id) {
 
-		return goodsService.queryGoodsByName(goodsName);
+		return goodsService.queryGoodsById(id);
 		
 	}
 	

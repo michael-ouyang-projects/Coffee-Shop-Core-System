@@ -9,9 +9,9 @@ public class GoodsService {
 	@Autowired
 	private GoodsRepository goodsRepository;
 	
-	public Goods queryGoodsByName(String goodsName) {
+	public Goods queryGoodsById(Long id) {
 		
-		return goodsRepository.findByName(goodsName);
+		return goodsRepository.findById(id).get();
 		
 	}
 	
