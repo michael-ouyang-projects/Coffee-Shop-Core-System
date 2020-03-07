@@ -6,8 +6,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface StoreRepository extends CrudRepository<Store, Long> {
 
-	Store findByBranchName(String branchName);
 	
-	String findBranchNameById(Long Id);
 	
 }

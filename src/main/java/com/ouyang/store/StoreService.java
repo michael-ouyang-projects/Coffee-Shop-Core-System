@@ -1,5 +1,7 @@
 package com.ouyang.store;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,9 +19,10 @@ public class StoreService {
 		
 	}
 	
-	public Store queryStoreByName(String branchName) {
+	
+	public List<Store> queryAllStores() {
 		
-		return storeRepository.findByBranchName(branchName);
+		return (List<Store>) storeRepository.findAll();
 		
 	}
 	
