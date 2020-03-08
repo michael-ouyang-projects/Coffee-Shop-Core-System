@@ -8,7 +8,29 @@
 	
 	<body>
 	
-		<h1 th:text="${welcomeMsg}"></h1>
+		<h1 th:text="${welcomeMessage}"></h1>
+		
+		Trading Section: <br/><br/>
+		<form action="trade-home" method="POST">
+			Customer Id: 
+			<input type="text" name="customerId" />
+			<input type="submit" value="Submit" />
+		</form>
+		
+		<br/><hr/>
+		
+		Managing Section: (future function)
+		<ul>
+		    <li>Add Customer</li>
+		    <li>Update Customer</li>
+		    
+		    <li>Update trade</li>
+		    <li>Delete trade</li>
+		    
+		    <li>Add Goods</li>
+		    <li>Update Goods</li>
+		    <li>Delete Goods</li>
+		</ul>
 	
 	</body>
 </html>
