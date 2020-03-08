@@ -1,4 +1,4 @@
-package com.ouyang.store;
+package com.ouyang.branch;
 
 import java.util.List;
 
@@ -7,22 +7,22 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class StoreService {
+public class BranchService {
 	
 	@Autowired
-	private StoreRepository storeRepository;
+	private BranchRepository branchRepository;
 	
 	@Transactional(rollbackFor = Exception.class)
-	public void createStore(Store store) {
+	public void createBranch(Branch branch) {
 		
-		storeRepository.save(store);
+		branchRepository.save(branch);
 		
 	}
 	
 	
-	public List<Store> queryAllStores() {
+	public List<Branch> queryAllBranches() {
 		
-		return (List<Store>) storeRepository.findAll();
+		return (List<Branch>) branchRepository.findAll();
 		
 	}
 	

@@ -1,4 +1,4 @@
-INSERT INTO store (id, branchName, address) 
+INSERT INTO branch (id, name, address) 
 VALUES
   (1, 'Headquarter', '24 Kellogg Rd New Hartford, New York(NY)'),
   (2, 'Fallsburg', 'Po Box 422 South Fallsburg, New York(NY)'),

@@ -1,19 +1,17 @@
-package com.ouyang.store;
+package com.ouyang.branch;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Store {
+public class Branch {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(name = "BRANCHNAME")
-	private String branchName;
+	private String name;
 	private String address;
 
 	public Long getId() {
@@ -24,12 +22,12 @@ public class Store {
 		this.id = id;
 	}
 
-	public String getBranchName() {
-		return branchName;
+	public String getName() {
+		return name;
 	}
 
-	public void setBranchName(String branchName) {
-		this.branchName = branchName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getAddress() {
