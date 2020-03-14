@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="UTF-8">
 		<title>Retail-Store-Core-System</title>
@@ -11,7 +10,7 @@
 		<h1 th:text="${welcomeMessage}"></h1>
 		
 		Trading Section: <br/><br/>
-		<form action="trade-home" method="POST">
+		<form action="/trade-home" method="POST">
 			Customer Id: 
 			<input type="text" name="customerId" />
 			<input type="submit" value="Submit" />

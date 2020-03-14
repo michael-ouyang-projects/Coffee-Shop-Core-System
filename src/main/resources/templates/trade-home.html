@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="UTF-8">
 		<title>Retail-Store-Core-System</title>
@@ -8,9 +7,37 @@
 	
 	<body>
 	
-		<h1>== Customer info ==</h1>
-		<div th:text="${customerId}"></div>
-		<div th:text="${customerName}"></div>
+		<h1>== Trading Section ==</h1>
 	
+		<h3>== Customer info ==</h3>
+		<div th:text="'Customer Id: ' + ${customer.id}"></div>
+		<div th:text="'Customer Name: ' + ${customer.name}"></div>
+		
+		<br/><hr/>
+		
+		<h3>== Add Buying Goods ==</h3>
+		<form action="/trade-home/add-buying-goods" method="POST">
+			Goods Id: <input type="text" name="goodsId" /><br/><br/>
+			Number : <input type="text" name="number" value='1' /><br/><br/>
+			<input type="submit" value="Add" />
+		</form>
+		
+		<br/><hr/>
+		
+		<div th:if="${buyingGoods}">
+			<h3>== Goods to Buy ==</h3>
+			<ul th:each="buyingGood : ${buyingGoods}">
+			    <li th:text="${buyingGood.goodsName}" />
+			    <li th:text="${buyingGood.number}" />
+			    <li th:text="${buyingGood.price}" />
+			</ul>
+			<p th:text="'Total Price : ' + ${totalPrice}"></p>
+			<form action="/trade-home/trade" method="POST">
+				<input type="submit" value="Confirm" />
+			</form>
+			
+			<br/><hr/>
+		</div>
+
 	</body>
 </html>
