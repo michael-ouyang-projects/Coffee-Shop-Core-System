@@ -26,4 +26,10 @@ public class BranchService {
 		
 	}
 	
+	public Branch queryByName(String name) {
+		
+		return branchRepository.findByName(name);
+		
+	}
+	
 }

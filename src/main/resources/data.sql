@@ -1,10 +1,10 @@
 INSERT INTO branch (id, name, address) 
 VALUES
-  (1, 'Headquarter', '24 Kellogg Rd New Hartford, New York(NY)'),
-  (2, 'Fallsburg', 'Po Box 422 South Fallsburg, New York(NY)'),
-  (3, 'Levittown', '44 Griddle Ln Levittown, New York(NY)'),
-  (4, 'LongBeach', '242 W Hudson St Long Beach, New York(NY)'),
-  (5, 'Chazy', '7829 State 22 Rte West Chazy, New York(NY)');
+  (1, 'Kaohsiung', 'No.1, Ziqiang 3rd Rd., Lingya District, Kaohsiung City'),
+  (2, 'New York', 'Po Box 422 South Fallsburg, New York(NY)'),
+  (3, 'Sydney', '3 Doris St, North Sydney, NSW 2060'),
+  (4, 'London', '46 St. John’s Road, East Central London, EC52 3BJ'),
+  (5, 'Shanghai', '297 Box, 130 Meilong Road, Shanghai, China');
 
 INSERT INTO goods (id, name, price, type) 
 VALUES

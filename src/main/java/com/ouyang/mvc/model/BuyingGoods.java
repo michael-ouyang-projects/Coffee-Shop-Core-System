@@ -2,7 +2,7 @@ package com.ouyang.mvc.model;
 
 import java.math.BigDecimal;
 
-public class BuyingGood {
+public class BuyingGoods {
 
 	private Long goodsId;
 	private String goodsName;

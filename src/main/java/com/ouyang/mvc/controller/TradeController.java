@@ -12,11 +12,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ouyang.branch.Branch;
 import com.ouyang.customer.Customer;
 import com.ouyang.customer.CustomerService;
 import com.ouyang.goods.Goods;
 import com.ouyang.goods.GoodsService;
-import com.ouyang.mvc.model.BuyingGood;
+import com.ouyang.mvc.model.BuyingGoods;
+import com.ouyang.transaction.TransactionService;
+import com.ouyang.transaction.object.TradeRequest;
+import com.ouyang.transaction.object.TradeResponse;
 
 @Controller
 public class TradeController {
@@ -26,11 +30,14 @@ public class TradeController {
 	
 	@Autowired
 	private GoodsService goodsService;
+	
+	@Autowired
+	private TransactionService transactionService;
 
 	@PostMapping("/trade-home")
-	public String branchHome(@RequestParam("customerId") Long customerId, 
-							 HttpSession session, 
-							 Model model) {
+	public String tradeHome(@RequestParam("customerId") Long customerId, 
+							HttpSession session, 
+							Model model) {
 		
 		Customer customer = customerService.queryCustomerById(customerId);
 		session.setAttribute("customer", customer);
@@ -43,36 +50,67 @@ public class TradeController {
 	
 	@SuppressWarnings("unchecked")
 	@PostMapping("/trade-home/add-buying-goods")
-	public String branchHome(@RequestParam("goodsId") Long goodsId,
-							 @RequestParam("number") Integer number,
-							 HttpSession session,
-							 Model model) {
+	public String addBuyingGoods(@RequestParam("goodsId") Long goodsId,
+							 	 @RequestParam("number") Integer number,
+							 	 HttpSession session,
+							 	 Model model) {
 
-		List<BuyingGood> buyingGoods = (List<BuyingGood>) session.getAttribute("buyingGoods");
+		List<BuyingGoods> buyingGoodsList = (List<BuyingGoods>) session.getAttribute("buyingGoods");
 		
-		Goods goods = goodsService.queryGoodsById(goodsId);
-		BuyingGood buyingGood = new BuyingGood();
-		buyingGood.setGoodsId(goodsId);
-		buyingGood.setGoodsName(goods.getName());
-		buyingGood.setNumber(number);
-		buyingGood.setPrice(goods.getPrice().multiply(new BigDecimal(number)));
-		buyingGoods.add(buyingGood);
+		BuyingGoods buyingGood = null;
+		if((buyingGood = getBuyingGoodsIfExist(buyingGoodsList, goodsId)) != null) {
+			
+			BigDecimal goodsPrice = buyingGood.getPrice().divide(new BigDecimal(buyingGood.getNumber()));
+			buyingGood.setNumber(buyingGood.getNumber() + number);
+			buyingGood.setPrice(goodsPrice.multiply(new BigDecimal(buyingGood.getNumber())));
+			
+		} else {
+			
+			Goods goods = goodsService.queryGoodsById(goodsId);
+			buyingGood = new BuyingGoods();
+			buyingGood.setGoodsId(goodsId);
+			buyingGood.setGoodsName(goods.getName());
+			buyingGood.setNumber(number);
+			buyingGood.setPrice(goods.getPrice().multiply(new BigDecimal(number)));
+			buyingGoodsList.add(buyingGood);
+			
+		}
 		
-		BigDecimal totalPrice = buyingGoods.stream().map(BuyingGood::getPrice).reduce(BigDecimal::add).get();
-		System.out.println(totalPrice);
+		BigDecimal totalPrice = buyingGoodsList.stream().map(BuyingGoods::getPrice).reduce(BigDecimal::add).get();
 		
 		model.addAttribute("customer", session.getAttribute("customer"));
-		model.addAttribute("buyingGoods", buyingGoods);
+		model.addAttribute("buyingGoodsList", buyingGoodsList);
 		model.addAttribute("totalPrice", totalPrice);
 		return "trade-home.html";
 
 	}
 	
-	@PostMapping("/trade")
-	public String addBuyingGoods() {
+	@SuppressWarnings("unchecked")
+	@PostMapping("/trade-home/trade")
+	public String trade(@RequestParam("totalPrice") String totalPrice, 
+						HttpSession session,
+						Model model) {
 		
-		return null;
+		TradeRequest tradeRequest = new TradeRequest();
+		tradeRequest.setCustomerId(((Customer)session.getAttribute("customer")).getId());
+		tradeRequest.setBranchId(((Branch)session.getAttribute("branch")).getId());
+		tradeRequest.setBuyingGoodsList((List<BuyingGoods>) session.getAttribute("buyingGoods"));
+		tradeRequest.setTotalPrice(new BigDecimal(totalPrice));
+		TradeResponse tradeResponse = transactionService.trade(tradeRequest);
 		
+		model.addAttribute("tradeResponse", tradeResponse);
+		return "trade-result.html";
+		
+	}
+	
+	private BuyingGoods getBuyingGoodsIfExist(List<BuyingGoods> buyingGoodsList, Long goodsId) {
+		
+		return buyingGoodsList
+			   .stream()
+			   .filter(buyingGoods -> buyingGoods.getGoodsId().equals(goodsId))
+	           .findFirst()
+	           .orElse(null);
+
 	}
 
 }

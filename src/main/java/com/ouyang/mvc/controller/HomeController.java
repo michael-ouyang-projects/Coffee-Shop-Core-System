@@ -1,5 +1,7 @@
 package com.ouyang.mvc.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,9 +26,12 @@ public class HomeController {
 	}
 	
 	@PostMapping("/branch-home")
-	public String branchHome(@RequestParam("branchName") String branchName, Model model) {
+	public String branchHome(@RequestParam("branchName") String branchName,
+							  HttpSession session,
+							  Model model) {
 		
-		model.addAttribute("welcomeMessage", String.format("== Welcome to %s ==", branchName));
+		session.setAttribute("branch", branchService.queryByName(branchName));
+		model.addAttribute("welcomeMessage", String.format("== Welcome to %s Branch ==", branchName));
 		return "branch-home.html";
 		
 	}

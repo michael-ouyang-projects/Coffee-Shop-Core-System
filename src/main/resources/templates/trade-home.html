@@ -24,18 +24,16 @@
 		
 		<br/><hr/>
 		
-		<div th:if="${buyingGoods}">
+		<div th:if="${buyingGoodsList}">
 			<h3>== Goods to Buy ==</h3>
-			<ul th:each="buyingGood : ${buyingGoods}">
-			    <li th:text="${buyingGood.goodsName}" />
-			    <li th:text="${buyingGood.number}" />
-			    <li th:text="${buyingGood.price}" />
+			<ul th:each="buyingGoods : ${buyingGoodsList}">
+			    <li th:text="'Name: ' + ${buyingGoods.goodsName} + ', Amount: ' + ${buyingGoods.number} + ', Price: ' + ${buyingGoods.price}" />
 			</ul>
 			<p th:text="'Total Price : ' + ${totalPrice}"></p>
 			<form action="/trade-home/trade" method="POST">
+				<input type="hidden" name="totalPrice" th:value="${totalPrice}" />
 				<input type="submit" value="Confirm" />
 			</form>
-			
 			<br/><hr/>
 		</div>
 

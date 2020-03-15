@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>Retail-Store-Core-System</title>
+	</head>
+	
+	<body>
+	
+		<h1>== Invoice ==</h1>
+		
+		<p th:text="'Trade ID : ' + ${tradeResponse.id}"></p>
+		<p th:text="'Total Price : ' + ${tradeResponse.totalPrice}"></p>
+
+		<ul th:each="buyingGoods : ${tradeResponse.buyingGoodsList}">
+		    <li th:text="'Name: ' + ${buyingGoods.goodsName} + ', Amount: ' + ${buyingGoods.number} + ', Price: ' + ${buyingGoods.price}" />
+		</ul>
+	
+	</body>
+</html>
