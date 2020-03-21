@@ -1,6 +1,7 @@
 package com.ouyang.transaction.object;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import com.ouyang.mvc.model.BuyingGoods;
@@ -8,6 +9,7 @@ import com.ouyang.mvc.model.BuyingGoods;
 public class TradeResponse {
 
 	private Long id;
+	private Date tradeDate;
 	private BigDecimal totalPrice;
 	private List<BuyingGoods> buyingGoodsList;
 
@@ -17,6 +19,14 @@ public class TradeResponse {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Date getTradeDate() {
+		return tradeDate;
+	}
+
+	public void setTradeDate(Date tradeDate) {
+		this.tradeDate = tradeDate;
 	}
 
 	public BigDecimal getTotalPrice() {

@@ -1,6 +1,7 @@
 package com.ouyang.transaction;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,18 +25,19 @@ public class TransactionService {
 
 		Transaction transaction = this.saveTransactionAndBuyingGoods(tradeRequest);
 		return this.createTradeResponse(transaction);
-		
+
 	}
-	
+
 	private Transaction saveTransactionAndBuyingGoods(TradeRequest tradeRequest) {
-		
+
 		Transaction transaction = new Transaction();
+		transaction.setTradeDate(new Date());
 		transaction.setCustomerId(tradeRequest.getCustomerId());
 		transaction.setStoreId(tradeRequest.getBranchId());
 		transaction.setTotalPrice(tradeRequest.getTotalPrice());
 		transaction.setItems(this.createTrasactionItems(transaction, tradeRequest.getBuyingGoodsList()));
 		return trasactionRepository.save(transaction);
-		
+
 	}
 
 	private List<TransactionItem> createTrasactionItems(Transaction transaction, List<BuyingGoods> buyingGoodsList) {
@@ -50,7 +52,7 @@ public class TransactionService {
 			transactionItem.setGoodsName(buyingGoods.getGoodsName());
 			transactionItem.setGoodsNumber(buyingGoods.getNumber());
 			transactionItem.setGoodsPrice(buyingGoods.getPrice());
-			
+
 			trasactionItems.add(transactionItem);
 
 		}
@@ -58,22 +60,23 @@ public class TransactionService {
 		return trasactionItems;
 
 	}
-	
+
 	private TradeResponse createTradeResponse(Transaction transaction) {
-		
+
 		TradeResponse tradeResponse = new TradeResponse();
 		tradeResponse.setId(transaction.getId());
+		tradeResponse.setTradeDate(transaction.getTradeDate());
 		tradeResponse.setTotalPrice(transaction.getTotalPrice());
 		tradeResponse.setBuyingGoodsList(this.createBuyingGoodsListAfterSave(transaction.getItems()));
-		
+
 		return tradeResponse;
-		
+
 	}
-	
+
 	private List<BuyingGoods> createBuyingGoodsListAfterSave(List<TransactionItem> transactionItems) {
-		
+
 		List<BuyingGoods> buyingGoodsList = new ArrayList<>();
-		
+
 		for (TransactionItem transactionItem : transactionItems) {
 
 			BuyingGoods buyingGoods = new BuyingGoods();
@@ -85,9 +88,15 @@ public class TransactionService {
 			buyingGoodsList.add(buyingGoods);
 
 		}
-		
+
 		return buyingGoodsList;
-		
+
+	}
+
+	public Transaction queryTrade(Long tradeId) {
+
+		return trasactionRepository.findById(tradeId).get();
+
 	}
 
 }

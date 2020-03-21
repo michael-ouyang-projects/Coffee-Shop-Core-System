@@ -10,6 +10,7 @@
 		<h1>== Invoice ==</h1>
 		
 		<p th:text="'Trade ID : ' + ${tradeResponse.id}"></p>
+		<p th:text="'Trade Time : ' + ${tradeResponse.tradeDate}"></p>
 		<p th:text="'Total Price : ' + ${tradeResponse.totalPrice}"></p>
 
 		<ul th:each="buyingGoods : ${tradeResponse.buyingGoodsList}">

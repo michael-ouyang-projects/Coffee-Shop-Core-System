@@ -1,6 +1,7 @@
 package com.ouyang.transaction.object;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -16,6 +17,7 @@ public class Transaction {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	private Date tradeDate;
 	private Long customerId;
 	private Long storeId;
 	private BigDecimal totalPrice;
@@ -28,6 +30,14 @@ public class Transaction {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Date getTradeDate() {
+		return tradeDate;
+	}
+
+	public void setTradeDate(Date tradeDate) {
+		this.tradeDate = tradeDate;
 	}
 
 	public Long getCustomerId() {

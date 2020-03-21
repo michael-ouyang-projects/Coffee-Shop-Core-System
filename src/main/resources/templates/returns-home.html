@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>Retail-Store-Core-System</title>
+	</head>
+	
+	<body>
+	
+		<h1>== Returns Section ==</h1>
+		
+		<h3>== Trade info ==</h3>
+		<div th:text="'Customer Id: ' + ${customer.id}"></div>
+		<div th:text="'Customer Name: ' + ${customer.name}"></div>
+		<div th:text="'Trade Date: ' + ${transaction.tradeDate}"></div>
+		<div th:text="'Total Price: ' + ${transaction.totalPrice}"></div>
+		<ul th:each="item : ${transaction.items}">
+		    <li th:text="'Goods Id: ' + ${item.goodsId} + ', Name: ' + ${item.goodsName} + ', Amount: ' + ${item.goodsNumber} + ', Price: ' + ${item.goodsPrice}" />
+		</ul>
+		
+		<br/><hr/>
+		
+		<h3>== Add Returning Goods ==</h3>
+		<form action="/trade-home/add-returning-goods" method="POST">
+			Goods Id: <input type="text" name="goodsId" /><br/><br/>
+			Number : <input type="text" name="number" value='1' /><br/><br/>
+			<input type="submit" value="Add" />
+		</form>
+		
+		<br/><hr/>
+		
+		<div th:if="${returningGoodsList}">
+			<h3>== Goods to Return ==</h3>
+			<ul th:each="returningGoods : ${returningGoodsList}">
+			    <li th:text="'Name: ' + ${returningGoods.goodsName} + ', Amount: ' + ${returningGoods.number} + ', Price: ' + ${returningGoods.price}" />
+			</ul>
+			<p th:text="'Total Returning Price : ' + ${totalReturningPrice}"></p>
+			<form action="/returns-home/return" method="POST">
+				<input type="hidden" name="totalReturningPrice" th:value="${totalReturningPrice}" />
+				<input type="submit" value="Confirm" />
+			</form>
+			<br/><hr/>
+		</div>
+
+	</body>
+</html>

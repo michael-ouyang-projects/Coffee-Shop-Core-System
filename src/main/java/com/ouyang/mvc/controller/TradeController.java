@@ -41,7 +41,7 @@ public class TradeController {
 		
 		Customer customer = customerService.queryCustomerById(customerId);
 		session.setAttribute("customer", customer);
-		session.setAttribute("buyingGoods", new ArrayList<>());
+		session.setAttribute("buyingGoodsList", new ArrayList<>());
 		
 		model.addAttribute("customer", customer);
 		return "trade-home.html";
@@ -55,24 +55,24 @@ public class TradeController {
 							 	 HttpSession session,
 							 	 Model model) {
 
-		List<BuyingGoods> buyingGoodsList = (List<BuyingGoods>) session.getAttribute("buyingGoods");
+		List<BuyingGoods> buyingGoodsList = (List<BuyingGoods>) session.getAttribute("buyingGoodsList");
 		
-		BuyingGoods buyingGood = null;
-		if((buyingGood = getBuyingGoodsIfExist(buyingGoodsList, goodsId)) != null) {
+		BuyingGoods buyingGoods = null;
+		if((buyingGoods = getBuyingGoodsIfExist(buyingGoodsList, goodsId)) != null) {
 			
-			BigDecimal goodsPrice = buyingGood.getPrice().divide(new BigDecimal(buyingGood.getNumber()));
-			buyingGood.setNumber(buyingGood.getNumber() + number);
-			buyingGood.setPrice(goodsPrice.multiply(new BigDecimal(buyingGood.getNumber())));
+			BigDecimal goodsPrice = buyingGoods.getPrice().divide(new BigDecimal(buyingGoods.getNumber()));
+			buyingGoods.setNumber(buyingGoods.getNumber() + number);
+			buyingGoods.setPrice(goodsPrice.multiply(new BigDecimal(buyingGoods.getNumber())));
 			
 		} else {
 			
 			Goods goods = goodsService.queryGoodsById(goodsId);
-			buyingGood = new BuyingGoods();
-			buyingGood.setGoodsId(goodsId);
-			buyingGood.setGoodsName(goods.getName());
-			buyingGood.setNumber(number);
-			buyingGood.setPrice(goods.getPrice().multiply(new BigDecimal(number)));
-			buyingGoodsList.add(buyingGood);
+			buyingGoods = new BuyingGoods();
+			buyingGoods.setGoodsId(goodsId);
+			buyingGoods.setGoodsName(goods.getName());
+			buyingGoods.setNumber(number);
+			buyingGoods.setPrice(goods.getPrice().multiply(new BigDecimal(number)));
+			buyingGoodsList.add(buyingGoods);
 			
 		}
 		
@@ -94,7 +94,7 @@ public class TradeController {
 		TradeRequest tradeRequest = new TradeRequest();
 		tradeRequest.setCustomerId(((Customer)session.getAttribute("customer")).getId());
 		tradeRequest.setBranchId(((Branch)session.getAttribute("branch")).getId());
-		tradeRequest.setBuyingGoodsList((List<BuyingGoods>) session.getAttribute("buyingGoods"));
+		tradeRequest.setBuyingGoodsList((List<BuyingGoods>) session.getAttribute("buyingGoodsList"));
 		tradeRequest.setTotalPrice(new BigDecimal(totalPrice));
 		TradeResponse tradeResponse = transactionService.trade(tradeRequest);
 		

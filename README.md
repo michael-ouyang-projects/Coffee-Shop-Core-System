@@ -16,5 +16,5 @@ DB
   1. Branch: id, name, address
   2. Goods: id, name, price, type
   3. Customer: id, name, sex, age
-  4. Transaction: id, customerId, storeId, totalPrice
+  4. Transaction: id, tradeDate, customerId, storeId, totalPrice
   5. TransactionItem: id, transactionId, goodsId, goodsName, goodsNumber, goodsPrice
