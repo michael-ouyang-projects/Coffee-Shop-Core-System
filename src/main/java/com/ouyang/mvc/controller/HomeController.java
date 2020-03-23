@@ -16,24 +16,21 @@ public class HomeController {
 
 	@Autowired
 	private BranchService branchService;
-	
-	@GetMapping(value={"/", "/home"})
+
+	@GetMapping(value = { "/", "/home" })
 	public String home(Model model) {
-		
-		model.addAttribute("branches", branchService.queryAllBranches());
+
 		return "home.html";
-		
+
 	}
-	
+
 	@PostMapping("/branch-home")
-	public String branchHome(@RequestParam("branchName") String branchName,
-							  HttpSession session,
-							  Model model) {
-		
+	public String branchHome(@RequestParam("branchName") String branchName, HttpSession session, Model model) {
+
 		session.setAttribute("branch", branchService.queryByName(branchName));
 		model.addAttribute("welcomeMessage", String.format("== Welcome to %s Branch ==", branchName));
 		return "branch-home.html";
-		
+
 	}
-		
+
 }

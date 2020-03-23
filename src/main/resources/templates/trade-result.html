@@ -16,6 +16,8 @@
 		<ul th:each="buyingGoods : ${tradeResponse.buyingGoodsList}">
 		    <li th:text="'Name: ' + ${buyingGoods.goodsName} + ', Amount: ' + ${buyingGoods.number} + ', Price: ' + ${buyingGoods.price}" />
 		</ul>
+		
+		<a th:href="@{'/branch-home'">Return To Branch Home</a>
 	
 	</body>
 </html>

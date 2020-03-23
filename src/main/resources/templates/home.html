@@ -10,7 +10,7 @@
 		<h1>== Welcome to Retail-Store-Core-System ==</h1>
 		
 		Below are all the branch, please choose one for this branch.
-		<ul th:each="branch : ${branches}">
+		<ul th:each="branch : ${@branches}">
 		    <li th:text="${branch.name}" />
 		</ul>
 		
