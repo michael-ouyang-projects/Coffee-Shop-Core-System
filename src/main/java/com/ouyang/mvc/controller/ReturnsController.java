@@ -8,7 +8,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -30,8 +29,7 @@ public class ReturnsController {
 
 	@PostMapping("/returns-home")
 	public String returnsHome(@RequestParam("tradeId") Long tradeId, 
-							  HttpSession session, 
-							  Model model) {
+							  HttpSession session) {
 
 		Transaction transaction = transactionService.queryTrade(tradeId);
 		Customer customer = customerService.queryCustomerById(transaction.getCustomerId());
@@ -40,9 +38,7 @@ public class ReturnsController {
 		session.setAttribute("customer", customer);
 		session.setAttribute("returningGoodsList", new ArrayList<ReturningGoods>());
 
-		model.addAttribute("transaction", transaction);
-		model.addAttribute("customer", customer);
-		return "returns-home.html";
+		return "returns/returns-home.html";
 
 	}
 
@@ -50,8 +46,7 @@ public class ReturnsController {
 	@PostMapping("/trade-home/add-returning-goods")
 	public String addReturningGoods(@RequestParam("goodsId") Long goodsId,
 									@RequestParam("number") Integer number,
-									HttpSession session,
-									Model model) {
+									HttpSession session) {
 
 		List<ReturningGoods> returningGoodsList = (List<ReturningGoods>) session.getAttribute("returningGoodsList");
 		Transaction transaction = (Transaction) session.getAttribute("transaction");
@@ -73,13 +68,8 @@ public class ReturnsController {
 
 		}
 
-		BigDecimal totalReturningPrice = returningGoodsList.stream().map(ReturningGoods::getPrice).reduce(BigDecimal::add).get();
-
-		model.addAttribute("transaction", session.getAttribute("transaction"));
-		model.addAttribute("customer", session.getAttribute("customer"));
-		model.addAttribute("returningGoodsList", returningGoodsList);
-		model.addAttribute("totalReturningPrice", totalReturningPrice);
-		return "returns-home.html";
+		session.setAttribute("totalReturningPrice", returningGoodsList.stream().map(ReturningGoods::getPrice).reduce(BigDecimal::add).get());
+		return "returns/returns-home.html";
 
 	}
 

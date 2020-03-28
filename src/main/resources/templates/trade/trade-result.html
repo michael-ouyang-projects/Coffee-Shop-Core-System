@@ -14,10 +14,12 @@
 		<p th:text="'Total Price : ' + ${tradeResponse.totalPrice}"></p>
 
 		<ul th:each="buyingGoods : ${tradeResponse.buyingGoodsList}">
-		    <li th:text="'Name: ' + ${buyingGoods.goodsName} + ', Amount: ' + ${buyingGoods.number} + ', Price: ' + ${buyingGoods.price}" />
+		    <li th:text="'Product: ' + ${buyingGoods.goodsName} + ', Amount: ' + ${buyingGoods.number} + ', Price: ' + ${buyingGoods.price}" />
 		</ul>
 		
-		<a href="/branch-home">Return To Branch Home</a>
+		<form action="/branch-home" method="POST">
+		    <button type="submit">Back to Home</button>
+		</form>
 	
 	</body>
 </html>

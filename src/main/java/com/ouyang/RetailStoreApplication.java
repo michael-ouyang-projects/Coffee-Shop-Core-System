@@ -22,7 +22,7 @@ public class RetailStoreApplication {
 
 	}
 
-	@Bean(value = "branches")
+	@Bean
 	public List<Branch> branches() {
 
 		return branchService.queryAllBranches();

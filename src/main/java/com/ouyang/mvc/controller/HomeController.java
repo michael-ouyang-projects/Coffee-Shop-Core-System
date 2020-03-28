@@ -24,11 +24,14 @@ public class HomeController {
 	}
 
 	@PostMapping("/branch-home")
-	public String branchHome(@RequestParam("branchName") String branchName, 
+	public String branchHome(@RequestParam(value = "branchName", required = false) String branchName, 
 							 HttpSession session) {
-
-		session.setAttribute("branch", branchService.queryByName(branchName));
-		return "branch-home.html";
+		
+		if(branchName != null) {
+			session.setAttribute("branch", branchService.queryByName(branchName));
+		}
+		
+		return "branch/branch-home.html";
 
 	}
 

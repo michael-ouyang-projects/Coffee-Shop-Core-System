@@ -41,7 +41,7 @@ public class TradeController {
 		session.setAttribute("customer", customerService.queryCustomerById(customerId));
 		session.setAttribute("buyingGoodsList", new ArrayList<>());
 		session.setAttribute("totalPrice", BigDecimal.ZERO);
-		return "trade-home.html";
+		return "trade/trade-home.html";
 
 	}
 	
@@ -72,9 +72,8 @@ public class TradeController {
 			
 		}
 		
-		BigDecimal totalPrice = buyingGoodsList.stream().map(BuyingGoods::getPrice).reduce(BigDecimal::add).get();
-		session.setAttribute("totalPrice", totalPrice);
-		return "trade-home.html";
+		session.setAttribute("totalPrice", buyingGoodsList.stream().map(BuyingGoods::getPrice).reduce(BigDecimal::add).get());
+		return "trade/trade-home.html";
 
 	}
 	
@@ -91,7 +90,7 @@ public class TradeController {
 		TradeResponse tradeResponse = transactionService.trade(tradeRequest);
 		
 		model.addAttribute("tradeResponse", tradeResponse);
-		return "trade-result.html";
+		return "trade/trade-result.html";
 		
 	}
 	

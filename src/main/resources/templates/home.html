@@ -10,14 +10,10 @@
 		<h1>== Welcome to Retail-Store-Core-System ==</h1>
 		
 		Below are all the branch, please choose one for this branch.
-		<ul th:each="branch : ${@branches}">
-		    <li th:text="${branch.name}" />
-		</ul>
-		
-		Type the branch name into the text field and click submit.<br/><br/>
 		<form action="/branch-home" method="POST">
-			<input type="text" name="branchName" value="Kaohsiung" />
-			<input type="submit" value="Submit" />
+			<ul th:each="branch : ${@branches}">
+		    	<li><input type="submit" name="branchName" th:value="${branch.name}" /></li>
+			</ul>
 		</form>
 	
 	</body>
