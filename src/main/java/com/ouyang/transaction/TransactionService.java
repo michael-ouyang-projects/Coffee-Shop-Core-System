@@ -1,5 +1,6 @@
 package com.ouyang.transaction;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -51,7 +52,7 @@ public class TransactionService {
 			transactionItem.setGoodsId(buyingGoods.getGoodsId());
 			transactionItem.setGoodsName(buyingGoods.getGoodsName());
 			transactionItem.setGoodsNumber(buyingGoods.getNumber());
-			transactionItem.setGoodsPrice(buyingGoods.getPrice());
+			transactionItem.setSubtotal(buyingGoods.getSubtotal());
 
 			trasactionItems.add(transactionItem);
 
@@ -83,7 +84,8 @@ public class TransactionService {
 			buyingGoods.setGoodsId(transactionItem.getGoodsId());
 			buyingGoods.setGoodsName(transactionItem.getGoodsName());
 			buyingGoods.setNumber(transactionItem.getGoodsNumber());
-			buyingGoods.setPrice(transactionItem.getGoodsPrice());
+			buyingGoods.setPrice(transactionItem.getSubtotal().divide(new BigDecimal(transactionItem.getGoodsNumber())));
+			buyingGoods.setSubtotal(transactionItem.getSubtotal());
 
 			buyingGoodsList.add(buyingGoods);
 

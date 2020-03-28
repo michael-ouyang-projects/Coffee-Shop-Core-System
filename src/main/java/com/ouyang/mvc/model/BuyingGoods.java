@@ -8,6 +8,7 @@ public class BuyingGoods {
 	private String goodsName;
 	private Integer number;
 	private BigDecimal price;
+	private BigDecimal subtotal;
 
 	public Long getGoodsId() {
 		return goodsId;
@@ -39,6 +40,14 @@ public class BuyingGoods {
 
 	public void setPrice(BigDecimal price) {
 		this.price = price;
+	}
+
+	public BigDecimal getSubtotal() {
+		return subtotal;
+	}
+
+	public void setSubtotal(BigDecimal subtotal) {
+		this.subtotal = subtotal;
 	}
 
 }

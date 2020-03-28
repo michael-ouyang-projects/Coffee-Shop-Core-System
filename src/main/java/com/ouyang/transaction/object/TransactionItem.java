@@ -21,7 +21,7 @@ public class TransactionItem {
 	private Long goodsId;
 	private String goodsName;
 	private Integer goodsNumber;
-	private BigDecimal goodsPrice;
+	private BigDecimal subtotal;
 
 	public Long getId() {
 		return id;
@@ -63,12 +63,12 @@ public class TransactionItem {
 		this.goodsNumber = goodsNumber;
 	}
 
-	public BigDecimal getGoodsPrice() {
-		return goodsPrice;
+	public BigDecimal getSubtotal() {
+		return subtotal;
 	}
 
-	public void setGoodsPrice(BigDecimal goodsPrice) {
-		this.goodsPrice = goodsPrice;
+	public void setSubtotal(BigDecimal goodsPrice) {
+		this.subtotal = goodsPrice;
 	}
 
 }

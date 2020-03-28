@@ -55,10 +55,10 @@ public class TradeController {
 		
 		BuyingGoods buyingGoods = null;
 		if((buyingGoods = getBuyingGoodsIfExist(buyingGoodsList, goodsId)) != null) {
-			
-			BigDecimal goodsPrice = buyingGoods.getPrice().divide(new BigDecimal(buyingGoods.getNumber()));
-			buyingGoods.setNumber(buyingGoods.getNumber() + number);
-			buyingGoods.setPrice(goodsPrice.multiply(new BigDecimal(buyingGoods.getNumber())));
+
+			int newNumber = buyingGoods.getNumber() + number;
+			buyingGoods.setNumber(newNumber);
+			buyingGoods.setSubtotal(buyingGoods.getPrice().multiply(new BigDecimal(newNumber)));
 			
 		} else {
 			
@@ -67,12 +67,13 @@ public class TradeController {
 			buyingGoods.setGoodsId(goodsId);
 			buyingGoods.setGoodsName(goods.getName());
 			buyingGoods.setNumber(number);
-			buyingGoods.setPrice(goods.getPrice().multiply(new BigDecimal(number)));
+			buyingGoods.setPrice(goods.getPrice());
+			buyingGoods.setSubtotal(goods.getPrice().multiply(new BigDecimal(number)));
 			buyingGoodsList.add(buyingGoods);
 			
 		}
 		
-		session.setAttribute("totalPrice", buyingGoodsList.stream().map(BuyingGoods::getPrice).reduce(BigDecimal::add).get());
+		session.setAttribute("totalPrice", calculateTotalPrice(buyingGoodsList));
 		return "trade/trade-home.html";
 
 	}
@@ -97,11 +98,21 @@ public class TradeController {
 	private BuyingGoods getBuyingGoodsIfExist(List<BuyingGoods> buyingGoodsList, Long goodsId) {
 		
 		return buyingGoodsList
-			   .stream()
-			   .filter(buyingGoods -> buyingGoods.getGoodsId().equals(goodsId))
-	           .findFirst()
-	           .orElse(null);
+				.stream()
+				.filter(buyingGoods -> buyingGoods.getGoodsId().equals(goodsId))
+				.findFirst()
+				.orElse(null);
 
+	}
+	
+	private BigDecimal calculateTotalPrice(List<BuyingGoods> buyingGoodsList) {
+		
+		return buyingGoodsList
+				.stream()
+				.map(BuyingGoods::getSubtotal)
+				.reduce(BigDecimal::add)
+				.get();
+		
 	}
 
 }

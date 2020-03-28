@@ -63,7 +63,7 @@ public class ReturnsController {
 			returningGoods.setGoodsId(goodsId);
 			returningGoods.setGoodsName(transactionItem.getGoodsName());
 			returningGoods.setNumber(number);
-			returningGoods.setPrice(transactionItem.getGoodsPrice());
+			returningGoods.setSubtotal(transactionItem.getSubtotal());
 			returningGoodsList.add(returningGoods);
 
 		}
