@@ -10,8 +10,8 @@
 		<h1>== Trading Section ==</h1>
 	
 		<h3>== Customer info ==</h3>
-		<div th:text="'Customer Id: ' + ${customer.id}"></div>
-		<div th:text="'Customer Name: ' + ${customer.name}"></div>
+		<div th:text="'Customer Id: ' + ${session.customer.id}"></div>
+		<div th:text="'Customer Name: ' + ${session.customer.name}"></div>
 		
 		<br/><hr/>
 		
@@ -24,14 +24,13 @@
 		
 		<br/><hr/>
 		
-		<div th:if="${buyingGoodsList}">
+		<div th:if="${session.buyingGoodsList}">
 			<h3>== Goods to Buy ==</h3>
-			<ul th:each="buyingGoods : ${buyingGoodsList}">
+			<ul th:each="buyingGoods : ${session.buyingGoodsList}">
 			    <li th:text="'Name: ' + ${buyingGoods.goodsName} + ', Amount: ' + ${buyingGoods.number} + ', Price: ' + ${buyingGoods.price}" />
 			</ul>
-			<p th:text="'Total Price : ' + ${totalPrice}"></p>
+			<p th:text="'Total Price : ' + ${session.totalPrice}"></p>
 			<form action="/trade-home/trade" method="POST">
-				<input type="hidden" name="totalPrice" th:value="${totalPrice}" />
 				<input type="submit" value="Confirm" />
 			</form>
 			<br/><hr/>

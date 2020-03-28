@@ -36,14 +36,11 @@ public class TradeController {
 
 	@PostMapping("/trade-home")
 	public String tradeHome(@RequestParam("customerId") Long customerId, 
-							HttpSession session, 
-							Model model) {
+							HttpSession session) {
 		
-		Customer customer = customerService.queryCustomerById(customerId);
-		session.setAttribute("customer", customer);
+		session.setAttribute("customer", customerService.queryCustomerById(customerId));
 		session.setAttribute("buyingGoodsList", new ArrayList<>());
-		
-		model.addAttribute("customer", customer);
+		session.setAttribute("totalPrice", BigDecimal.ZERO);
 		return "trade-home.html";
 
 	}
@@ -52,8 +49,7 @@ public class TradeController {
 	@PostMapping("/trade-home/add-buying-goods")
 	public String addBuyingGoods(@RequestParam("goodsId") Long goodsId,
 							 	 @RequestParam("number") Integer number,
-							 	 HttpSession session,
-							 	 Model model) {
+							 	 HttpSession session) {
 
 		List<BuyingGoods> buyingGoodsList = (List<BuyingGoods>) session.getAttribute("buyingGoodsList");
 		
@@ -77,25 +73,21 @@ public class TradeController {
 		}
 		
 		BigDecimal totalPrice = buyingGoodsList.stream().map(BuyingGoods::getPrice).reduce(BigDecimal::add).get();
-		
-		model.addAttribute("customer", session.getAttribute("customer"));
-		model.addAttribute("buyingGoodsList", buyingGoodsList);
-		model.addAttribute("totalPrice", totalPrice);
+		session.setAttribute("totalPrice", totalPrice);
 		return "trade-home.html";
 
 	}
 	
 	@SuppressWarnings("unchecked")
 	@PostMapping("/trade-home/trade")
-	public String trade(@RequestParam("totalPrice") String totalPrice, 
-						HttpSession session,
+	public String trade(HttpSession session,
 						Model model) {
 		
 		TradeRequest tradeRequest = new TradeRequest();
-		tradeRequest.setCustomerId(((Customer)session.getAttribute("customer")).getId());
-		tradeRequest.setBranchId(((Branch)session.getAttribute("branch")).getId());
+		tradeRequest.setCustomerId(((Customer) session.getAttribute("customer")).getId());
+		tradeRequest.setBranchId(((Branch) session.getAttribute("branch")).getId());
 		tradeRequest.setBuyingGoodsList((List<BuyingGoods>) session.getAttribute("buyingGoodsList"));
-		tradeRequest.setTotalPrice(new BigDecimal(totalPrice));
+		tradeRequest.setTotalPrice((BigDecimal) session.getAttribute("totalPrice"));
 		TradeResponse tradeResponse = transactionService.trade(tradeRequest);
 		
 		model.addAttribute("tradeResponse", tradeResponse);
