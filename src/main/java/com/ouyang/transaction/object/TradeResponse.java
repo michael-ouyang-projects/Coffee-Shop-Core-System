@@ -11,7 +11,7 @@ public class TradeResponse {
 	private Long id;
 	private Date tradeDate;
 	private BigDecimal totalPrice;
-	private List<BuyingGoods> buyingGoodsList;
+	private List<BuyingGoods> buyingList;
 
 	public Long getId() {
 		return id;
@@ -37,12 +37,12 @@ public class TradeResponse {
 		this.totalPrice = totalPrice;
 	}
 
-	public List<BuyingGoods> getBuyingGoodsList() {
-		return buyingGoodsList;
+	public List<BuyingGoods> getBuyingList() {
+		return buyingList;
 	}
 
-	public void setBuyingGoodsList(List<BuyingGoods> buyingGoodsList) {
-		this.buyingGoodsList = buyingGoodsList;
+	public void setBuyingList(List<BuyingGoods> buyingList) {
+		this.buyingList = buyingList;
 	}
 
 }

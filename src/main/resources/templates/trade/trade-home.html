@@ -17,16 +17,16 @@
 		<h3>== Add Buying Goods ==</h3>
 		<form action="/trade-home/add-buying-goods" method="POST">
 			Goods Id: <input type="text" name="goodsId" /><br/><br/>
-			Number : <input type="text" name="number" value='1' /><br/><br/>
+			Number : <input type="text" name="amount" value='1' /><br/><br/>
 			<input type="submit" value="Add" />
 		</form>
 		
 		<br/><hr/>
 		
-		<div th:if="${!session.buyingGoodsList.empty}">
+		<div th:if="${!session.buyingList.empty}">
 			<h3>== Goods to Buy ==</h3>
-			<ul th:each="buyingGoods : ${session.buyingGoodsList}">
-			    <li th:text="'Product: ' + ${buyingGoods.goodsName} + ', Amount: ' + ${buyingGoods.number} + ', Price: ' + ${buyingGoods.price} + ', Subtotal: ' + ${buyingGoods.subtotal}" />
+			<ul th:each="buyingGoods : ${session.buyingList}">
+			    <li th:text="'Product: ' + ${buyingGoods.name} + ', Amount: ' + ${buyingGoods.amount} + ', Price: ' + ${buyingGoods.price} + ', Subtotal: ' + ${buyingGoods.subtotal}" />
 			</ul>
 			<p th:text="'Total: ' + ${session.totalPrice}"></p>
 			<form action="/trade-home/trade" method="POST">

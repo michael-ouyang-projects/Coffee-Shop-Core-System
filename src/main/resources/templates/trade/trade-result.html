@@ -13,8 +13,8 @@
 		<p th:text="'Trade Time: ' + ${tradeResponse.tradeDate}"></p>
 		<p th:text="'Total: ' + ${tradeResponse.totalPrice}"></p>
 
-		<ul th:each="buyingGoods : ${tradeResponse.buyingGoodsList}">
-		    <li th:text="'Product: ' + ${buyingGoods.goodsName} + ', Amount: ' + ${buyingGoods.number} + ', Price: ' + ${buyingGoods.price} + ', Subtotal: ' + ${buyingGoods.subtotal}" />
+		<ul th:each="buyingGoods : ${tradeResponse.buyingList}">
+		    <li th:text="'Product: ' + ${buyingGoods.name} + ', Amount: ' + ${buyingGoods.amount} + ', Price: ' + ${buyingGoods.price} + ', Subtotal: ' + ${buyingGoods.subtotal}" />
 		</ul>
 		
 		<form action="/branch-home" method="POST">

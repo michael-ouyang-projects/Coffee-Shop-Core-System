@@ -54,15 +54,15 @@ public class ReturnsController {
 		ReturningGoods returningGoods = null;
 		if ((returningGoods = getReturningGoodsIfExist(returningGoodsList, goodsId)) != null) {
 
-			returningGoods.setNumber(returningGoods.getNumber() + number);
+			returningGoods.setAmount(returningGoods.getAmount() + number);
 
 		} else {
 
 			TransactionItem transactionItem = transaction.getItems().stream().filter(item -> item.getGoodsId().equals(goodsId)).findFirst().get();
 			returningGoods = new ReturningGoods();
-			returningGoods.setGoodsId(goodsId);
-			returningGoods.setGoodsName(transactionItem.getGoodsName());
-			returningGoods.setNumber(number);
+			returningGoods.setId(goodsId);
+			returningGoods.setName(transactionItem.getName());
+			returningGoods.setAmount(number);
 			returningGoods.setSubtotal(transactionItem.getSubtotal());
 			returningGoodsList.add(returningGoods);
 
@@ -75,7 +75,7 @@ public class ReturnsController {
 
 	private ReturningGoods getReturningGoodsIfExist(List<ReturningGoods> returningGoodsList, Long goodsId) {
 
-		return returningGoodsList.stream().filter(returningGoods -> returningGoods.getGoodsId().equals(goodsId)).findFirst().orElse(null);
+		return returningGoodsList.stream().filter(returningGoods -> returningGoods.getId().equals(goodsId)).findFirst().orElse(null);
 
 	}
 

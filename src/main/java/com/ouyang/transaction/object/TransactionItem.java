@@ -19,8 +19,8 @@ public class TransactionItem {
 	@JoinColumn(name = "TRANSACTIONID")
 	private Transaction transaction;
 	private Long goodsId;
-	private String goodsName;
-	private Integer goodsNumber;
+	private String name;
+	private Integer amount;
 	private BigDecimal subtotal;
 
 	public Long getId() {
@@ -47,20 +47,20 @@ public class TransactionItem {
 		this.goodsId = goodsId;
 	}
 
-	public String getGoodsName() {
-		return goodsName;
+	public String getName() {
+		return name;
 	}
 
-	public void setGoodsName(String goodsName) {
-		this.goodsName = goodsName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public Integer getGoodsNumber() {
-		return goodsNumber;
+	public Integer getAmount() {
+		return amount;
 	}
 
-	public void setGoodsNumber(Integer goodsNumber) {
-		this.goodsNumber = goodsNumber;
+	public void setAmount(Integer amount) {
+		this.amount = amount;
 	}
 
 	public BigDecimal getSubtotal() {

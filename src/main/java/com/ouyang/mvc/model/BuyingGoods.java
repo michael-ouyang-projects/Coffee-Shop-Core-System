@@ -4,34 +4,34 @@ import java.math.BigDecimal;
 
 public class BuyingGoods {
 
-	private Long goodsId;
-	private String goodsName;
-	private Integer number;
+	private Long id;
+	private String name;
+	private Integer amount;
 	private BigDecimal price;
 	private BigDecimal subtotal;
 
-	public Long getGoodsId() {
-		return goodsId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setGoodsId(Long goodsId) {
-		this.goodsId = goodsId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getGoodsName() {
-		return goodsName;
+	public String getName() {
+		return name;
 	}
 
-	public void setGoodsName(String goodsName) {
-		this.goodsName = goodsName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public Integer getNumber() {
-		return number;
+	public Integer getAmount() {
+		return amount;
 	}
 
-	public void setNumber(Integer number) {
-		this.number = number;
+	public void setAmount(Integer number) {
+		this.amount = number;
 	}
 
 	public BigDecimal getPrice() {

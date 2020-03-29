@@ -36,22 +36,22 @@ public class TransactionService {
 		transaction.setCustomerId(tradeRequest.getCustomerId());
 		transaction.setStoreId(tradeRequest.getBranchId());
 		transaction.setTotalPrice(tradeRequest.getTotalPrice());
-		transaction.setItems(this.createTrasactionItems(transaction, tradeRequest.getBuyingGoodsList()));
+		transaction.setItems(this.createTrasactionItems(transaction, tradeRequest.getBuyingList()));
 		return trasactionRepository.save(transaction);
 
 	}
 
-	private List<TransactionItem> createTrasactionItems(Transaction transaction, List<BuyingGoods> buyingGoodsList) {
+	private List<TransactionItem> createTrasactionItems(Transaction transaction, List<BuyingGoods> buyingList) {
 
 		List<TransactionItem> trasactionItems = new ArrayList<>();
 
-		for (BuyingGoods buyingGoods : buyingGoodsList) {
+		for (BuyingGoods buyingGoods : buyingList) {
 
 			TransactionItem transactionItem = new TransactionItem();
 			transactionItem.setTransaction(transaction);
-			transactionItem.setGoodsId(buyingGoods.getGoodsId());
-			transactionItem.setGoodsName(buyingGoods.getGoodsName());
-			transactionItem.setGoodsNumber(buyingGoods.getNumber());
+			transactionItem.setGoodsId(buyingGoods.getId());
+			transactionItem.setName(buyingGoods.getName());
+			transactionItem.setAmount(buyingGoods.getAmount());
 			transactionItem.setSubtotal(buyingGoods.getSubtotal());
 
 			trasactionItems.add(transactionItem);
@@ -68,7 +68,7 @@ public class TransactionService {
 		tradeResponse.setId(transaction.getId());
 		tradeResponse.setTradeDate(transaction.getTradeDate());
 		tradeResponse.setTotalPrice(transaction.getTotalPrice());
-		tradeResponse.setBuyingGoodsList(this.createBuyingGoodsListAfterSave(transaction.getItems()));
+		tradeResponse.setBuyingList(this.createBuyingGoodsListAfterSave(transaction.getItems()));
 
 		return tradeResponse;
 
@@ -81,10 +81,10 @@ public class TransactionService {
 		for (TransactionItem transactionItem : transactionItems) {
 
 			BuyingGoods buyingGoods = new BuyingGoods();
-			buyingGoods.setGoodsId(transactionItem.getGoodsId());
-			buyingGoods.setGoodsName(transactionItem.getGoodsName());
-			buyingGoods.setNumber(transactionItem.getGoodsNumber());
-			buyingGoods.setPrice(transactionItem.getSubtotal().divide(new BigDecimal(transactionItem.getGoodsNumber())));
+			buyingGoods.setId(transactionItem.getGoodsId());
+			buyingGoods.setName(transactionItem.getName());
+			buyingGoods.setAmount(transactionItem.getAmount());
+			buyingGoods.setPrice(transactionItem.getSubtotal().divide(new BigDecimal(transactionItem.getAmount())));
 			buyingGoods.setSubtotal(transactionItem.getSubtotal());
 
 			buyingGoodsList.add(buyingGoods);
