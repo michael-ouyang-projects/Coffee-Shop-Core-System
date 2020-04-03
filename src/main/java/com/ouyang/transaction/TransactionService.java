@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ouyang.mvc.model.BuyingGoods;
+import com.ouyang.stream.kafka.KafkaService;
 import com.ouyang.transaction.object.TradeRequest;
 import com.ouyang.transaction.object.TradeResponse;
 import com.ouyang.transaction.object.Transaction;
@@ -19,12 +20,17 @@ import com.ouyang.transaction.object.TransactionItem;
 public class TransactionService {
 
 	@Autowired
+	private KafkaService kafkaService;
+	
+	@Autowired
 	private TransactionRepository trasactionRepository;
 
+	
 	@Transactional(rollbackFor = Exception.class)
 	public TradeResponse trade(TradeRequest tradeRequest) {
 
 		Transaction transaction = this.saveTransactionAndBuyingGoods(tradeRequest);
+		this.sendTransactionalDataToReportService(transaction);
 		return this.createTradeResponse(transaction);
 
 	}
@@ -60,6 +66,12 @@ public class TransactionService {
 
 		return trasactionItems;
 
+	}
+	
+	private void sendTransactionalDataToReportService(Transaction transaction) {
+		
+		kafkaService.sendTransaction(transaction);
+		
 	}
 
 	private TradeResponse createTradeResponse(Transaction transaction) {

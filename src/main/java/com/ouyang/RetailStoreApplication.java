@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ouyang.branch.Branch;
 import com.ouyang.branch.BranchService;
 
@@ -16,6 +17,7 @@ public class RetailStoreApplication {
 	@Autowired
 	private BranchService branchService;
 
+	
 	public static void main(String[] args) {
 
 		SpringApplication.run(RetailStoreApplication.class, args);
@@ -27,6 +29,13 @@ public class RetailStoreApplication {
 
 		return branchService.queryAllBranches();
 
+	}
+	
+	@Bean
+	public ObjectMapper objectMapper() {
+		
+		return new ObjectMapper();
+		
 	}
 
 }

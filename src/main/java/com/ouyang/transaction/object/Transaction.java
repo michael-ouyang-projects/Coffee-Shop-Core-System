@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Transaction {
 
@@ -22,6 +24,7 @@ public class Transaction {
 	private Long storeId;
 	private BigDecimal totalPrice;
 	@OneToMany(targetEntity = TransactionItem.class, mappedBy = "transaction", cascade = CascadeType.ALL)
+	@JsonManagedReference
 	private List<TransactionItem> items;
 
 	public Long getId() {

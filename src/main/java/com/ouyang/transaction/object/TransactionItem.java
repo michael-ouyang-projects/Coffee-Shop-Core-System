@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class TransactionItem {
 
@@ -17,6 +19,7 @@ public class TransactionItem {
 	private Long id;
 	@ManyToOne(targetEntity = Transaction.class)
 	@JoinColumn(name = "TRANSACTIONID")
+	@JsonBackReference
 	private Transaction transaction;
 	private Long goodsId;
 	private String name;

@@ -6,19 +6,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ouyang.transaction.object.Transaction;
+
 @Service
 public class KafkaService {
 
-	private final static Logger logger = LoggerFactory.getLogger(KafkaService.class);
+	private static final Logger logger = LoggerFactory.getLogger(KafkaService.class);
 	
 	@Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
 	
+	@Autowired
+	private ObjectMapper objectMapper;
 	
-	public void sendMessage(String message) {
+	
+	public void sendTransaction(Transaction transaction) {
 		
-        logger.info(String.format("#### -> Producing message -> %s", message));
-        this.kafkaTemplate.send("test", message);
+		try {
+			
+			String  message = objectMapper.writeValueAsString(transaction);
+			logger.debug(String.format("#### -> Producing message -> %s", message));
+	        this.kafkaTemplate.send("report", message);
+			
+		} catch (JsonProcessingException e) {
+			
+			e.printStackTrace();
+			
+		}
         
     }
 	
