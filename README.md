@@ -22,11 +22,11 @@ DB
 --------------------------------------------------------
 Docker Command (tmp)
   
-  ./mvnw clean package
-  sudo docker build -t ouyang/rscs .
-  sudo docker run -d --net host --name rscs ouyang/rscs:latest
-  sudo docker logs rscs
-  sudo docker stop rscs
-  sudo docker rm rscs
-  sudo docker rmi ouyang/rscs:latest
+  ./mvnw clean package  
+  sudo docker build -t ouyang/rscs .  
+  sudo docker run -d --net host --name rscs ouyang/rscs:latest  
+  sudo docker logs rscs  
+  sudo docker stop rscs  
+  sudo docker rm rscs  
+  sudo docker rmi ouyang/rscs:latest  
   
