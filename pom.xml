@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.ouyang</groupId>
-	<artifactId>Store</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>Store</name>
+	<artifactId>rscs</artifactId>
+	<version>1.0</version>
+	<name>rscs</name>
 	<description>Retail-Store-Core-System_Store-Service</description>
 
 	<properties>
