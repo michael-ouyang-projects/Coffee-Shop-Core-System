@@ -17,6 +17,7 @@ public class KafkaService {
 	@Autowired
 	private ObjectMapper objectMapper;
 
+	
 	public void sendTransaction(Transaction transaction) {
 
 		try {
