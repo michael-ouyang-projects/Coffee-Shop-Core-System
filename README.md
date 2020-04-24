@@ -1,25 +1,24 @@
 # Retail-Store-Core-System
-Monolithic Spring Boot Project
 
-This is a core system that deal with daily demands for a Retail Store.
+Purpose: This is a web application that deal with retail store's daily demands.
 
-It has 5 main services.
-  1. Branch Service - For CRUD Branches.
-  2. Goods Service - For CRUD Goods.
-  3. Customer Service - For CRUD Customers.
-  4. Transaction Service - For all the Business Trades.
-  5. Report Service - For Produce Reports.
+Technology: Spring Framework, Thymeleaf, Mysql, Kafka, Docker, Google Cloud Platform.
 
---------------------------------------------------------
+Use Cases:
+  1. Trading.
+  2. CRUD Customers Info, Goods Info, Branches Info and all the other business components.
+  3. Create reports for managers to observe/evaluate market conditions.
 
-DB
-  1. Branch: id, name, address
+-------------------------------------------------------------------------------------------
+
+Database(Tables and Columns)
+  1. Customer: id, name, sex, age
   2. Goods: id, name, price, type
-  3. Customer: id, name, sex, age
+  3. Branch: id, name, address
   4. Transaction: id, tradeDate, customerId, storeId, totalPrice
   5. TransactionItem: id, transactionId, goodsId, goodsName, goodsNumber, goodsPrice
 
---------------------------------------------------------
+-------------------------------------------------------------------------------------------
 Docker Command (tmp)
   
   ./mvnw clean package  
