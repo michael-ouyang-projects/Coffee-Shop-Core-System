@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ouyang.mvc.controller.helper.ReturnsControllerHelper;
-import com.ouyang.mvc.model.ReturningGoods;
-import com.ouyang.transaction.object.Transaction;
+import com.ouyang.mvc.model.TradeGoods;
+import com.ouyang.transaction.Transaction;
 
 @Controller
 public class ReturnsController {
@@ -35,10 +35,10 @@ public class ReturnsController {
 									@RequestParam("amount") Integer amount,
 									HttpSession session) {
 
-		List<ReturningGoods> returningList = (List<ReturningGoods>) session.getAttribute("returningList");
+		List<TradeGoods> returningList = (List<TradeGoods>) session.getAttribute("returningList");
 		Transaction transaction = (Transaction) session.getAttribute("transaction");
 
-		ReturningGoods returningGoods = helper.getReturningGoodsFromReturningListByGoodsId(returningList, goodsId);
+		TradeGoods returningGoods = helper.getReturningGoodsFromReturningListByGoodsId(returningList, goodsId);
 		if (returningGoods != null) {
 
 			helper.setNewAmountAndSubtotalForExistReturningGoods(returningGoods, amount);

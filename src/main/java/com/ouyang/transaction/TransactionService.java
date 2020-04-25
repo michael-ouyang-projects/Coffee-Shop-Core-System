@@ -9,11 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ouyang.mvc.model.BuyingGoods;
-import com.ouyang.transaction.object.TradeRequest;
-import com.ouyang.transaction.object.TradeResponse;
-import com.ouyang.transaction.object.Transaction;
-import com.ouyang.transaction.object.TransactionItem;
+import com.ouyang.mvc.model.TradeGoods;
+import com.ouyang.mvc.model.TradeRequest;
+import com.ouyang.mvc.model.TradeResponse;
 
 @Service
 public class TransactionService {
@@ -42,11 +40,11 @@ public class TransactionService {
 
 	}
 
-	private List<TransactionItem> createTrasactionItems(Transaction transaction, List<BuyingGoods> buyingList) {
+	private List<TransactionItem> createTrasactionItems(Transaction transaction, List<TradeGoods> buyingList) {
 
 		List<TransactionItem> trasactionItems = new ArrayList<>();
 
-		for (BuyingGoods buyingGoods : buyingList) {
+		for (TradeGoods buyingGoods : buyingList) {
 
 			TransactionItem transactionItem = new TransactionItem();
 			transactionItem.setTransaction(transaction);
@@ -75,13 +73,13 @@ public class TransactionService {
 
 	}
 
-	private List<BuyingGoods> createBuyingGoodsListAfterSave(List<TransactionItem> transactionItems) {
+	private List<TradeGoods> createBuyingGoodsListAfterSave(List<TransactionItem> transactionItems) {
 
-		List<BuyingGoods> buyingGoodsList = new ArrayList<>();
+		List<TradeGoods> buyingGoodsList = new ArrayList<>();
 
 		for (TransactionItem transactionItem : transactionItems) {
 
-			BuyingGoods buyingGoods = new BuyingGoods();
+			TradeGoods buyingGoods = new TradeGoods();
 			buyingGoods.setId(transactionItem.getGoodsId());
 			buyingGoods.setName(transactionItem.getGoodsName());
 			buyingGoods.setAmount(transactionItem.getAmount());

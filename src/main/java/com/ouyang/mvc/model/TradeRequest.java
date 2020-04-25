@@ -1,15 +1,13 @@
-package com.ouyang.transaction.object;
+package com.ouyang.mvc.model;
 
 import java.math.BigDecimal;
 import java.util.List;
-
-import com.ouyang.mvc.model.BuyingGoods;
 
 public class TradeRequest {
 
 	private Long customerId;
 	private Long branchId;
-	private List<BuyingGoods> buyingList;
+	private List<TradeGoods> buyingList;
 	private BigDecimal totalPrice;
 
 	public Long getCustomerId() {
@@ -28,11 +26,11 @@ public class TradeRequest {
 		this.branchId = branchId;
 	}
 
-	public List<BuyingGoods> getBuyingList() {
+	public List<TradeGoods> getBuyingList() {
 		return buyingList;
 	}
 
-	public void setBuyingList(List<BuyingGoods> buyingList) {
+	public void setBuyingList(List<TradeGoods> buyingList) {
 		this.buyingList = buyingList;
 	}
 

@@ -1,4 +1,4 @@
-package com.ouyang.transaction.object;
+package com.ouyang.transaction;
 
 import java.math.BigDecimal;
 

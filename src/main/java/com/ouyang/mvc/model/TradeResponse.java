@@ -1,17 +1,15 @@
-package com.ouyang.transaction.object;
+package com.ouyang.mvc.model;
 
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-
-import com.ouyang.mvc.model.BuyingGoods;
 
 public class TradeResponse {
 
 	private Long id;
 	private Date tradeDate;
 	private BigDecimal totalPrice;
-	private List<BuyingGoods> buyingList;
+	private List<TradeGoods> buyingList;
 
 	public Long getId() {
 		return id;
@@ -37,11 +35,11 @@ public class TradeResponse {
 		this.totalPrice = totalPrice;
 	}
 
-	public List<BuyingGoods> getBuyingList() {
+	public List<TradeGoods> getBuyingList() {
 		return buyingList;
 	}
 
-	public void setBuyingList(List<BuyingGoods> buyingList) {
+	public void setBuyingList(List<TradeGoods> buyingList) {
 		this.buyingList = buyingList;
 	}
 

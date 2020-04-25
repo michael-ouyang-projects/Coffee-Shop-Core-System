@@ -14,8 +14,8 @@ import com.ouyang.customer.Customer;
 import com.ouyang.customer.CustomerService;
 import com.ouyang.goods.Goods;
 import com.ouyang.goods.GoodsService;
-import com.ouyang.mvc.model.BuyingGoods;
-import com.ouyang.transaction.object.TradeRequest;
+import com.ouyang.mvc.model.TradeGoods;
+import com.ouyang.mvc.model.TradeRequest;
 
 @Component
 public class TradeControllerHelper {
@@ -35,7 +35,7 @@ public class TradeControllerHelper {
 		
 	}
 	
-	public BuyingGoods getBuyingGoodsFromBuyingList(List<BuyingGoods> buyingList, Long goodsId) {
+	public TradeGoods getBuyingGoodsFromBuyingList(List<TradeGoods> buyingList, Long goodsId) {
 		
 		return buyingList
 				.stream()
@@ -45,7 +45,7 @@ public class TradeControllerHelper {
 
 	}
 	
-	public void setNewAmountAndSubtotalForExistBuyingGoods(BuyingGoods buyingGoods, Integer amount) {
+	public void setNewAmountAndSubtotalForExistBuyingGoods(TradeGoods buyingGoods, Integer amount) {
 		
 		int newBuyingAmount = buyingGoods.getAmount() + amount;
 		buyingGoods.setAmount(newBuyingAmount);
@@ -53,11 +53,11 @@ public class TradeControllerHelper {
 		
 	}
 	
-	public void addBuyingGoodsToBuyingList(List<BuyingGoods> buyingList, Long goodsId, Integer amount) {
+	public void addBuyingGoodsToBuyingList(List<TradeGoods> buyingList, Long goodsId, Integer amount) {
 		
 		Goods goods = goodsService.queryGoodsById(goodsId);
 		
-		BuyingGoods buyingGoods = new BuyingGoods();
+		TradeGoods buyingGoods = new TradeGoods();
 		buyingGoods.setId(goodsId);
 		buyingGoods.setName(goods.getName());
 		buyingGoods.setAmount(amount);
@@ -68,11 +68,11 @@ public class TradeControllerHelper {
 		
 	}
 	
-	public BigDecimal calculateTotalPrice(List<BuyingGoods> buyingGoodsList) {
+	public BigDecimal calculateTotalPrice(List<TradeGoods> buyingGoodsList) {
 		
 		return buyingGoodsList
 				.stream()
-				.map(BuyingGoods::getSubtotal)
+				.map(TradeGoods::getSubtotal)
 				.reduce(BigDecimal::add)
 				.get();
 		
@@ -84,7 +84,7 @@ public class TradeControllerHelper {
 		TradeRequest tradeRequest = new TradeRequest();
 		tradeRequest.setCustomerId(((Customer) session.getAttribute("customer")).getId());
 		tradeRequest.setBranchId(((Branch) session.getAttribute("branch")).getId());
-		tradeRequest.setBuyingList((List<BuyingGoods>) session.getAttribute("buyingList"));
+		tradeRequest.setBuyingList((List<TradeGoods>) session.getAttribute("buyingList"));
 		tradeRequest.setTotalPrice((BigDecimal) session.getAttribute("totalPrice"));
 		
 		return tradeRequest;

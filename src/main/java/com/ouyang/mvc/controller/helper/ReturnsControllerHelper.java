@@ -11,10 +11,10 @@ import org.springframework.stereotype.Component;
 
 import com.ouyang.customer.Customer;
 import com.ouyang.customer.CustomerService;
-import com.ouyang.mvc.model.ReturningGoods;
+import com.ouyang.mvc.model.TradeGoods;
+import com.ouyang.transaction.Transaction;
+import com.ouyang.transaction.TransactionItem;
 import com.ouyang.transaction.TransactionService;
-import com.ouyang.transaction.object.Transaction;
-import com.ouyang.transaction.object.TransactionItem;
 
 @Component
 public class ReturnsControllerHelper {
@@ -32,11 +32,11 @@ public class ReturnsControllerHelper {
 
 		session.setAttribute("transaction", transaction);
 		session.setAttribute("customer", customer);
-		session.setAttribute("returningList", new ArrayList<ReturningGoods>());
+		session.setAttribute("returningList", new ArrayList<TradeGoods>());
 
 	}
 
-	public ReturningGoods getReturningGoodsFromReturningListByGoodsId(List<ReturningGoods> returningList, Long goodsId) {
+	public TradeGoods getReturningGoodsFromReturningListByGoodsId(List<TradeGoods> returningList, Long goodsId) {
 
 		return returningList
 				.stream()
@@ -46,7 +46,7 @@ public class ReturnsControllerHelper {
 
 	}
 
-	public void setNewAmountAndSubtotalForExistReturningGoods(ReturningGoods returningGoods, Integer amount) {
+	public void setNewAmountAndSubtotalForExistReturningGoods(TradeGoods returningGoods, Integer amount) {
 
 		int newReturningAmount = returningGoods.getAmount() + amount;
 		returningGoods.setAmount(newReturningAmount);
@@ -54,11 +54,11 @@ public class ReturnsControllerHelper {
 
 	}
 
-	public void addReturningGoodsToReturningList(List<ReturningGoods> returningList, Transaction transaction, Long goodsId, Integer amount) {
+	public void addReturningGoodsToReturningList(List<TradeGoods> returningList, Transaction transaction, Long goodsId, Integer amount) {
 
 		TransactionItem transactionItem = this.getTransactionItemByGoodsId(transaction, goodsId);
 
-		ReturningGoods returningGoods = new ReturningGoods();
+		TradeGoods returningGoods = new TradeGoods();
 		returningGoods.setId(goodsId);
 		returningGoods.setName(transactionItem.getGoodsName());
 		returningGoods.setAmount(amount);
@@ -81,11 +81,11 @@ public class ReturnsControllerHelper {
 
 	}
 
-	public BigDecimal calculateTotalReturningPrice(List<ReturningGoods> returningList) {
+	public BigDecimal calculateTotalReturningPrice(List<TradeGoods> returningList) {
 
 		return returningList
 				.stream()
-				.map(ReturningGoods::getSubtotal)
+				.map(TradeGoods::getSubtotal)
 				.reduce(BigDecimal::add)
 				.get();
 

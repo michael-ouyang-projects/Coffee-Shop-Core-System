@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ouyang.mvc.controller.helper.TradeControllerHelper;
-import com.ouyang.mvc.model.BuyingGoods;
+import com.ouyang.mvc.model.TradeGoods;
+import com.ouyang.mvc.model.TradeRequest;
+import com.ouyang.mvc.model.TradeResponse;
 import com.ouyang.transaction.TransactionService;
-import com.ouyang.transaction.object.TradeRequest;
-import com.ouyang.transaction.object.TradeResponse;
 
 @Controller
 public class TradeController {
@@ -41,9 +41,9 @@ public class TradeController {
 							 	 @RequestParam("amount") Integer amount,
 							 	 HttpSession session) {
 
-		List<BuyingGoods> buyingList = (List<BuyingGoods>) session.getAttribute("buyingList");
+		List<TradeGoods> buyingList = (List<TradeGoods>) session.getAttribute("buyingList");
 		
-		BuyingGoods buyingGoods = helper.getBuyingGoodsFromBuyingList(buyingList, goodsId);
+		TradeGoods buyingGoods = helper.getBuyingGoodsFromBuyingList(buyingList, goodsId);
 		if(buyingGoods != null) {
 
 			helper.setNewAmountAndSubtotalForExistBuyingGoods(buyingGoods, amount);
