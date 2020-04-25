@@ -8,7 +8,7 @@ Use Cases:
   1. Trading.
   2. CRUD Customers Info, Goods Info, Branches Info and all the other business components.
   3. Create reports for managers to observe and evaluate market conditions.
-  4. Real time automatically inventory management. 
+  4. Real time automatic inventory management. 
 
 -------------------------------------------------------------------------------------------
 
