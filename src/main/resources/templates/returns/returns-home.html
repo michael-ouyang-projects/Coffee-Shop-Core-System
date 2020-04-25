@@ -15,7 +15,7 @@
 		<div th:text="'Trade Date: ' + ${session.transaction.tradeDate}"></div>
 		<div th:text="'Total: ' + ${session.transaction.totalPrice}"></div>
 		<ul th:each="item : ${session.transaction.items}">
-		    <li th:text="'Goods Id: ' + ${item.goodsId} + ', Name: ' + ${item.name} + ', Amount: ' + ${item.amount} + ', Price: ' + ${item.subtotal / item.amount} + ', Subtotal: ' + ${item.subtotal}" />
+		    <li th:text="'Goods Id: ' + ${item.goodsId} + ', Name: ' + ${item.goodsName} + ', Amount: ' + ${item.amount} + ', Price: ' + ${item.subtotal / item.amount} + ', Subtotal: ' + ${item.subtotal}" />
 		</ul>
 		
 		<br/><hr/>

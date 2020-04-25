@@ -17,12 +17,12 @@ public class TransactionItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@ManyToOne(targetEntity = Transaction.class)
+	@ManyToOne
 	@JoinColumn(name = "TRANSACTIONID")
 	@JsonBackReference
 	private Transaction transaction;
 	private Long goodsId;
-	private String name;
+	private String goodsName;
 	private Integer amount;
 	private BigDecimal subtotal;
 
@@ -50,12 +50,12 @@ public class TransactionItem {
 		this.goodsId = goodsId;
 	}
 
-	public String getName() {
-		return name;
+	public String getGoodsName() {
+		return goodsName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setGoodsName(String goodsName) {
+		this.goodsName = goodsName;
 	}
 
 	public Integer getAmount() {

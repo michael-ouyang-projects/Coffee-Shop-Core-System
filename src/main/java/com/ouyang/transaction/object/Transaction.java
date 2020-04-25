@@ -23,7 +23,7 @@ public class Transaction {
 	private Long customerId;
 	private Long storeId;
 	private BigDecimal totalPrice;
-	@OneToMany(targetEntity = TransactionItem.class, mappedBy = "transaction", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL)
 	@JsonManagedReference
 	private List<TransactionItem> items;
 

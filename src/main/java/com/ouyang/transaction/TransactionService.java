@@ -51,7 +51,7 @@ public class TransactionService {
 			TransactionItem transactionItem = new TransactionItem();
 			transactionItem.setTransaction(transaction);
 			transactionItem.setGoodsId(buyingGoods.getId());
-			transactionItem.setName(buyingGoods.getName());
+			transactionItem.setGoodsName(buyingGoods.getName());
 			transactionItem.setAmount(buyingGoods.getAmount());
 			transactionItem.setSubtotal(buyingGoods.getSubtotal());
 
@@ -83,7 +83,7 @@ public class TransactionService {
 
 			BuyingGoods buyingGoods = new BuyingGoods();
 			buyingGoods.setId(transactionItem.getGoodsId());
-			buyingGoods.setName(transactionItem.getName());
+			buyingGoods.setName(transactionItem.getGoodsName());
 			buyingGoods.setAmount(transactionItem.getAmount());
 			buyingGoods.setPrice(transactionItem.getSubtotal().divide(new BigDecimal(transactionItem.getAmount())));
 			buyingGoods.setSubtotal(transactionItem.getSubtotal());

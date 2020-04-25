@@ -60,7 +60,7 @@ public class ReturnsControllerHelper {
 
 		ReturningGoods returningGoods = new ReturningGoods();
 		returningGoods.setId(goodsId);
-		returningGoods.setName(transactionItem.getName());
+		returningGoods.setName(transactionItem.getGoodsName());
 		returningGoods.setAmount(amount);
 		BigDecimal goodsPrice = transactionItem.getSubtotal().divide(new BigDecimal(transactionItem.getAmount()));
 		returningGoods.setPrice(goodsPrice);
