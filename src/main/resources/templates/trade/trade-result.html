@@ -9,12 +9,12 @@
 	
 		<h1>== Invoice ==</h1>
 		
-		<p th:text="'Trade ID: ' + ${tradeResponse.id}"></p>
+		<p th:text="'Trade ID: ' + ${tradeResponse.tradeId}"></p>
 		<p th:text="'Trade Time: ' + ${tradeResponse.tradeDate}"></p>
 		<p th:text="'Total: ' + ${tradeResponse.totalPrice}"></p>
 
 		<ul th:each="buyingGoods : ${tradeResponse.buyingList}">
-		    <li th:text="'Product: ' + ${buyingGoods.name} + ', Amount: ' + ${buyingGoods.amount} + ', Price: ' + ${buyingGoods.price} + ', Subtotal: ' + ${buyingGoods.subtotal}" />
+		    <li th:text="'Product: ' + ${buyingGoods.goodsName} + ', Amount: ' + ${buyingGoods.amount} + ', Price: ' + ${buyingGoods.price} + ', Subtotal: ' + ${buyingGoods.subtotal}" />
 		</ul>
 		
 		<form action="/branch-home" method="POST">

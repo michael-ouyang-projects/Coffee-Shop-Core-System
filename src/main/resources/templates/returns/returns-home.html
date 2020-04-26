@@ -14,8 +14,8 @@
 		<div th:text="'Customer => Id: ' + ${session.customer.id} + ', Name: ' + ${session.customer.name}"></div>
 		<div th:text="'Trade Date: ' + ${session.transaction.tradeDate}"></div>
 		<div th:text="'Total: ' + ${session.transaction.totalPrice}"></div>
-		<ul th:each="item : ${session.transaction.items}">
-		    <li th:text="'Goods Id: ' + ${item.goodsId} + ', Name: ' + ${item.goodsName} + ', Amount: ' + ${item.amount} + ', Price: ' + ${item.subtotal / item.amount} + ', Subtotal: ' + ${item.subtotal}" />
+		<ul th:each="buyingGoods : ${session.buyingList}">
+		    <li th:text="'Goods Id: ' + ${buyingGoods.goodsId} + ', Name: ' + ${buyingGoods.goodsName} + ', Amount: ' + ${buyingGoods.amount} + ', Price: ' + ${buyingGoods.price} + ', Subtotal: ' + ${buyingGoods.subtotal}" />
 		</ul>
 		
 		<br/><hr/>
@@ -32,7 +32,7 @@
 		<div th:if="${!session.returningList.empty}">
 			<h3>== Goods to Return ==</h3>
 			<ul th:each="returningGoods: ${session.returningList}">
-			    <li th:text="'Product: ' + ${returningGoods.name} + ', Amount: ' + ${returningGoods.amount} + ', Price: ' + ${returningGoods.price} + ', Subtotal: ' + ${returningGoods.subtotal}" />
+			    <li th:text="'Product: ' + ${returningGoods.goodsName} + ', Amount: ' + ${returningGoods.amount} + ', Price: ' + ${returningGoods.price} + ', Subtotal: ' + ${returningGoods.subtotal}" />
 			</ul>
 			<p th:text="'Total Returning Price: ' + ${session.totalReturningPrice}"></p>
 			<form action="/returns-home/return" method="POST">

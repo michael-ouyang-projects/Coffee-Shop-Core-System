@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ouyang.mvc.controller.helper.ReturnsControllerHelper;
 import com.ouyang.mvc.model.TradeGoods;
-import com.ouyang.transaction.Transaction;
 
 @Controller
 public class ReturnsController {
@@ -36,8 +35,7 @@ public class ReturnsController {
 									HttpSession session) {
 
 		List<TradeGoods> returningList = (List<TradeGoods>) session.getAttribute("returningList");
-		Transaction transaction = (Transaction) session.getAttribute("transaction");
-
+		
 		TradeGoods returningGoods = helper.getReturningGoodsFromReturningListByGoodsId(returningList, goodsId);
 		if (returningGoods != null) {
 
@@ -45,7 +43,7 @@ public class ReturnsController {
 
 		} else {
 
-			helper.addReturningGoodsToReturningList(returningList, transaction, goodsId, amount);
+			helper.addReturningGoodsToReturningList(returningList, goodsId, amount, session);
 
 		}
 

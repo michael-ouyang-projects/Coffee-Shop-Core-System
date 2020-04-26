@@ -1,7 +1,5 @@
 package com.ouyang.transaction;
 
-import java.math.BigDecimal;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,10 +20,9 @@ public class TransactionItem {
 	@JsonBackReference
 	private Transaction transaction;
 	private Long goodsId;
-	private String goodsName;
-	private Integer amount;
-	private BigDecimal subtotal;
+	private Integer amount;;
 
+	
 	public Long getId() {
 		return id;
 	}
@@ -50,28 +47,12 @@ public class TransactionItem {
 		this.goodsId = goodsId;
 	}
 
-	public String getGoodsName() {
-		return goodsName;
-	}
-
-	public void setGoodsName(String goodsName) {
-		this.goodsName = goodsName;
-	}
-
 	public Integer getAmount() {
 		return amount;
 	}
 
 	public void setAmount(Integer amount) {
 		this.amount = amount;
-	}
-
-	public BigDecimal getSubtotal() {
-		return subtotal;
-	}
-
-	public void setSubtotal(BigDecimal goodsPrice) {
-		this.subtotal = goodsPrice;
 	}
 
 }

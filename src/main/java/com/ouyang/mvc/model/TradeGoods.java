@@ -4,26 +4,27 @@ import java.math.BigDecimal;
 
 public class TradeGoods {
 
-	private Long id;
-	private String name;
+	private Long goodsId;
+	private String goodsName;
 	private Integer amount;
 	private BigDecimal price;
 	private BigDecimal subtotal;
 
-	public Long getId() {
-		return id;
+	
+	public Long getGoodsId() {
+		return goodsId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setGoodsId(Long goodsId) {
+		this.goodsId = goodsId;
 	}
 
-	public String getName() {
-		return name;
+	public String getGoodsName() {
+		return goodsName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setGoodsName(String goodsName) {
+		this.goodsName = goodsName;
 	}
 
 	public Integer getAmount() {

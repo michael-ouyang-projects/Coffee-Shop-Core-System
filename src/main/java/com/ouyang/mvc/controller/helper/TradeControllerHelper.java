@@ -31,7 +31,6 @@ public class TradeControllerHelper {
 		
 		session.setAttribute("customer", customerService.queryCustomerById(customerId));
 		session.setAttribute("buyingList", new ArrayList<>());
-		session.setAttribute("totalPrice", BigDecimal.ZERO);
 		
 	}
 	
@@ -39,7 +38,7 @@ public class TradeControllerHelper {
 		
 		return buyingList
 				.stream()
-				.filter(buyingGoods -> buyingGoods.getId().equals(goodsId))
+				.filter(buyingGoods -> buyingGoods.getGoodsId().equals(goodsId))
 				.findFirst()
 				.orElse(null);
 
@@ -58,8 +57,8 @@ public class TradeControllerHelper {
 		Goods goods = goodsService.queryGoodsById(goodsId);
 		
 		TradeGoods buyingGoods = new TradeGoods();
-		buyingGoods.setId(goodsId);
-		buyingGoods.setName(goods.getName());
+		buyingGoods.setGoodsId(goods.getId());
+		buyingGoods.setGoodsName(goods.getName());
 		buyingGoods.setAmount(amount);
 		buyingGoods.setPrice(goods.getPrice());
 		buyingGoods.setSubtotal(goods.getPrice().multiply(new BigDecimal(amount)));

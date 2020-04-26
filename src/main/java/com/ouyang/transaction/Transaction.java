@@ -21,12 +21,13 @@ public class Transaction {
 	private Long id;
 	private Date tradeDate;
 	private Long customerId;
-	private Long storeId;
+	private Long branchId;
 	private BigDecimal totalPrice;
 	@OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL)
 	@JsonManagedReference
 	private List<TransactionItem> items;
 
+	
 	public Long getId() {
 		return id;
 	}
@@ -51,12 +52,12 @@ public class Transaction {
 		this.customerId = customerId;
 	}
 
-	public Long getStoreId() {
-		return storeId;
+	public Long getBranchId() {
+		return branchId;
 	}
 
-	public void setStoreId(Long storeId) {
-		this.storeId = storeId;
+	public void setBranchId(Long branchId) {
+		this.branchId = branchId;
 	}
 
 	public BigDecimal getTotalPrice() {

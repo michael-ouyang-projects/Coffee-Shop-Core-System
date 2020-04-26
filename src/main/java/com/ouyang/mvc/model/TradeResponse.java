@@ -6,17 +6,18 @@ import java.util.List;
 
 public class TradeResponse {
 
-	private Long id;
+	private Long tradeId;
 	private Date tradeDate;
 	private BigDecimal totalPrice;
 	private List<TradeGoods> buyingList;
 
-	public Long getId() {
-		return id;
+	
+	public Long getTradeId() {
+		return tradeId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setTradeId(Long tradeId) {
+		this.tradeId = tradeId;
 	}
 
 	public Date getTradeDate() {

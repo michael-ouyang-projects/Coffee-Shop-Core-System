@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ouyang.goods.Goods;
+import com.ouyang.goods.GoodsRepository;
 import com.ouyang.mvc.model.TradeGoods;
 import com.ouyang.mvc.model.TradeRequest;
 import com.ouyang.mvc.model.TradeResponse;
@@ -19,6 +21,9 @@ public class TransactionService {
 	@Autowired
 	private TransactionRepository trasactionRepository;
 
+	@Autowired
+	private GoodsRepository goodsRepository;
+	
 	
 	@Transactional(rollbackFor = Exception.class)
 	public TradeResponse trade(TradeRequest tradeRequest) {
@@ -33,7 +38,7 @@ public class TransactionService {
 		Transaction transaction = new Transaction();
 		transaction.setTradeDate(new Date());
 		transaction.setCustomerId(tradeRequest.getCustomerId());
-		transaction.setStoreId(tradeRequest.getBranchId());
+		transaction.setBranchId(tradeRequest.getBranchId());
 		transaction.setTotalPrice(tradeRequest.getTotalPrice());
 		transaction.setItems(this.createTrasactionItems(transaction, tradeRequest.getBuyingList()));
 		return trasactionRepository.save(transaction);
@@ -48,10 +53,8 @@ public class TransactionService {
 
 			TransactionItem transactionItem = new TransactionItem();
 			transactionItem.setTransaction(transaction);
-			transactionItem.setGoodsId(buyingGoods.getId());
-			transactionItem.setGoodsName(buyingGoods.getName());
+			transactionItem.setGoodsId(buyingGoods.getGoodsId());
 			transactionItem.setAmount(buyingGoods.getAmount());
-			transactionItem.setSubtotal(buyingGoods.getSubtotal());
 
 			trasactionItems.add(transactionItem);
 
@@ -64,7 +67,7 @@ public class TransactionService {
 	private TradeResponse createTradeResponse(Transaction transaction) {
 
 		TradeResponse tradeResponse = new TradeResponse();
-		tradeResponse.setId(transaction.getId());
+		tradeResponse.setTradeId(transaction.getId());
 		tradeResponse.setTradeDate(transaction.getTradeDate());
 		tradeResponse.setTotalPrice(transaction.getTotalPrice());
 		tradeResponse.setBuyingList(this.createBuyingGoodsListAfterSave(transaction.getItems()));
@@ -79,12 +82,14 @@ public class TransactionService {
 
 		for (TransactionItem transactionItem : transactionItems) {
 
+			Goods goods = goodsRepository.findById(transactionItem.getGoodsId()).get();
+			
 			TradeGoods buyingGoods = new TradeGoods();
-			buyingGoods.setId(transactionItem.getGoodsId());
-			buyingGoods.setName(transactionItem.getGoodsName());
+			buyingGoods.setGoodsId(transactionItem.getGoodsId());
+			buyingGoods.setGoodsName(goods.getName());
 			buyingGoods.setAmount(transactionItem.getAmount());
-			buyingGoods.setPrice(transactionItem.getSubtotal().divide(new BigDecimal(transactionItem.getAmount())));
-			buyingGoods.setSubtotal(transactionItem.getSubtotal());
+			buyingGoods.setPrice(goods.getPrice());
+			buyingGoods.setSubtotal(goods.getPrice().multiply(new BigDecimal(transactionItem.getAmount())));
 
 			buyingGoodsList.add(buyingGoods);
 

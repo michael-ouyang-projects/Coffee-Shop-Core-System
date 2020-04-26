@@ -16,8 +16,8 @@ Database(Tables and Columns)
   1. Customer: id, name, sex, age
   2. Goods: id, name, price, type
   3. Branch: id, name, address
-  4. Transaction: id, tradeDate, customerId, storeId, totalPrice
-  5. TransactionItem: id, transactionId, goodsId, goodsName, amount, subtotal
+  4. Transaction: id, tradeDate, customerId, branchId, totalPrice
+  5. TransactionItem: id, transactionId, goodsId, amount
 
 -------------------------------------------------------------------------------------------
 Docker Command (tmp)

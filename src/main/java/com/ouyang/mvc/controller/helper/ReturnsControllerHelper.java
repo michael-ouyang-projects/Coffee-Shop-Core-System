@@ -9,8 +9,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.ouyang.customer.Customer;
 import com.ouyang.customer.CustomerService;
+import com.ouyang.goods.Goods;
+import com.ouyang.goods.GoodsService;
 import com.ouyang.mvc.model.TradeGoods;
 import com.ouyang.transaction.Transaction;
 import com.ouyang.transaction.TransactionItem;
@@ -25,14 +26,41 @@ public class ReturnsControllerHelper {
 	@Autowired
 	private CustomerService customerService;
 
+	@Autowired
+	private GoodsService goodsService;
+
+	
 	public void initSessionDataForReturnsRequest(Long tradeId, HttpSession session) {
 
 		Transaction transaction = transactionService.queryTrade(tradeId);
-		Customer customer = customerService.queryCustomerById(transaction.getCustomerId());
 
 		session.setAttribute("transaction", transaction);
-		session.setAttribute("customer", customer);
+		session.setAttribute("customer", customerService.queryCustomerById(transaction.getCustomerId()));
+		session.setAttribute("buyingList", createBuyingListFromTransactionItems(transaction.getItems()));
 		session.setAttribute("returningList", new ArrayList<TradeGoods>());
+
+	}
+
+	private List<TradeGoods> createBuyingListFromTransactionItems(List<TransactionItem> items) {
+
+		List<TradeGoods> buyingList = new ArrayList<>();
+
+		for (TransactionItem item : items) {
+
+			Goods goods = goodsService.queryGoodsById(item.getGoodsId());
+
+			TradeGoods buyingGoods = new TradeGoods();
+			buyingGoods.setGoodsId(goods.getId());
+			buyingGoods.setGoodsName(goods.getName());
+			buyingGoods.setAmount(item.getAmount());
+			buyingGoods.setPrice(goods.getPrice());
+			buyingGoods.setSubtotal(goods.getPrice().multiply(new BigDecimal(item.getAmount())));
+
+			buyingList.add(buyingGoods);
+			
+		}
+
+		return buyingList;
 
 	}
 
@@ -40,7 +68,7 @@ public class ReturnsControllerHelper {
 
 		return returningList
 				.stream()
-				.filter(returningGoods -> returningGoods.getId().equals(goodsId))
+				.filter(returningGoods -> returningGoods.getGoodsId().equals(goodsId))
 				.findFirst()
 				.orElse(null);
 
@@ -54,31 +82,32 @@ public class ReturnsControllerHelper {
 
 	}
 
-	public void addReturningGoodsToReturningList(List<TradeGoods> returningList, Transaction transaction, Long goodsId, Integer amount) {
+	public void addReturningGoodsToReturningList(List<TradeGoods> returningList, Long goodsId, Integer amount, HttpSession session) {
 
-		TransactionItem transactionItem = this.getTransactionItemByGoodsId(transaction, goodsId);
+		TradeGoods buyingGoods = getBuyingGoodsFromBuyingListByGoodsId(goodsId, session);
 
 		TradeGoods returningGoods = new TradeGoods();
-		returningGoods.setId(goodsId);
-		returningGoods.setName(transactionItem.getGoodsName());
+		returningGoods.setGoodsId(buyingGoods.getGoodsId());
+		returningGoods.setGoodsName(buyingGoods.getGoodsName());
 		returningGoods.setAmount(amount);
-		BigDecimal goodsPrice = transactionItem.getSubtotal().divide(new BigDecimal(transactionItem.getAmount()));
-		returningGoods.setPrice(goodsPrice);
-		returningGoods.setSubtotal(goodsPrice.multiply(new BigDecimal(amount)));
+		returningGoods.setPrice(buyingGoods.getPrice());
+		returningGoods.setSubtotal(buyingGoods.getPrice().multiply(new BigDecimal(amount)));
 
 		returningList.add(returningGoods);
 
 	}
+	
+	@SuppressWarnings("unchecked")
+	private TradeGoods getBuyingGoodsFromBuyingListByGoodsId(Long goodsId, HttpSession session) {
+		
+		List<TradeGoods> buyingList = (List<TradeGoods>) session.getAttribute("buyingList");
 
-	private TransactionItem getTransactionItemByGoodsId(Transaction transaction, Long goodsId) {
-
-		return transaction
-				.getItems()
+		return buyingList
 				.stream()
-				.filter(item -> item.getGoodsId().equals(goodsId))
+				.filter(buyingGoods -> buyingGoods.getGoodsId().equals(goodsId))
 				.findFirst()
 				.get();
-
+		
 	}
 
 	public BigDecimal calculateTotalReturningPrice(List<TradeGoods> returningList) {
