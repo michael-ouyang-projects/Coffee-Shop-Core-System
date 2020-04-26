@@ -6,7 +6,7 @@ Technology: Spring Framework, Thymeleaf, Mysql, Kafka, Docker, Google Cloud Plat
 
 Use Cases:
   1. Trading.
-  2. CRUD Customers Info, Goods Info, Branches Info and all the other business components.
+  2. Create and Update Customers Info, Goods Info, Branches Info and all the other business components.
   3. Create reports for managers to observe and evaluate market conditions.
   4. Real time automatic inventory management. 
 
