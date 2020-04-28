@@ -13,11 +13,12 @@ Use Cases:
 -------------------------------------------------------------------------------------------
 
 Database(Tables and Columns)
-  1. Customer: id, name, sex, age
-  2. Goods: id, name, price, type
-  3. Branch: id, name, address
-  4. Transaction: id, tradeDate, customerId, branchId, totalPrice
-  5. TransactionItem: id, transactionId, goodsId, amount
+  1. Branch: id, name, address
+  2. Customer: id, name, sex, age
+  3. Goods: id, name, price, type
+  4. Item: id, goodsId
+  5. Transaction: id, tradeDate, customerId, branchId, totalPrice
+  6. TransactionDetail: transactionId, itemId
 
 -------------------------------------------------------------------------------------------
 Docker Command (tmp)
