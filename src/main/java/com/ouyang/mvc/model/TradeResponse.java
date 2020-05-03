@@ -9,7 +9,7 @@ public class TradeResponse {
 	private Long tradeId;
 	private Date tradeDate;
 	private BigDecimal totalPrice;
-	private List<TradeGoods> buyingList;
+	private List<TradeCoffee> buyingList;
 
 	
 	public Long getTradeId() {
@@ -36,11 +36,11 @@ public class TradeResponse {
 		this.totalPrice = totalPrice;
 	}
 
-	public List<TradeGoods> getBuyingList() {
+	public List<TradeCoffee> getBuyingList() {
 		return buyingList;
 	}
 
-	public void setBuyingList(List<TradeGoods> buyingList) {
+	public void setBuyingList(List<TradeCoffee> buyingList) {
 		this.buyingList = buyingList;
 	}
 

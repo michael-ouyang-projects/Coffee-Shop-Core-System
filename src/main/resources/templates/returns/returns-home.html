@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="UTF-8">
-		<title>Retail-Store-Core-System</title>
+		<title>Coffee-Shop-Core-System</title>
 	</head>
 	
 	<body>
@@ -14,15 +14,15 @@
 		<div th:text="'Customer => Id: ' + ${session.customer.id} + ', Name: ' + ${session.customer.name}"></div>
 		<div th:text="'Trade Date: ' + ${session.transaction.tradeDate}"></div>
 		<div th:text="'Total: ' + ${session.transaction.totalPrice}"></div>
-		<ul th:each="buyingGoods : ${session.buyingList}">
-		    <li th:text="'Goods Id: ' + ${buyingGoods.goodsId} + ', Name: ' + ${buyingGoods.goodsName} + ', Amount: ' + ${buyingGoods.amount} + ', Price: ' + ${buyingGoods.price} + ', Subtotal: ' + ${buyingGoods.subtotal}" />
+		<ul th:each="item : ${session.buyingList}">
+		    <li th:text="'Coffee Id: ' + ${item.coffeeId} + ', Name: ' + ${item.coffeeName} + ', Amount: ' + ${item.amount} + ', Price: ' + ${item.price} + ', Subtotal: ' + ${item.subtotal}" />
 		</ul>
 		
 		<br/><hr/>
 		
 		<h3>== Add Returning Goods ==</h3>
-		<form action="/trade-home/add-returning-goods" method="POST">
-			Goods Id: <input type="text" name="goodsId" /><br/><br/>
+		<form action="/trade-home/add-returning-coffee" method="POST">
+			Goods Id: <input type="text" name="coffeeId" /><br/><br/>
 			Number : <input type="text" name="amount" value='1' /><br/><br/>
 			<input type="submit" value="Add" />
 		</form>
@@ -30,9 +30,9 @@
 		<br/><hr/>
 		
 		<div th:if="${!session.returningList.empty}">
-			<h3>== Goods to Return ==</h3>
-			<ul th:each="returningGoods: ${session.returningList}">
-			    <li th:text="'Product: ' + ${returningGoods.goodsName} + ', Amount: ' + ${returningGoods.amount} + ', Price: ' + ${returningGoods.price} + ', Subtotal: ' + ${returningGoods.subtotal}" />
+			<h3>== Coffee to Return ==</h3>
+			<ul th:each="item: ${session.returningList}">
+			    <li th:text="'Product: ' + ${item.coffeeName} + ', Amount: ' + ${item.amount} + ', Price: ' + ${item.price} + ', Subtotal: ' + ${item.subtotal}" />
 			</ul>
 			<p th:text="'Total Returning Price: ' + ${session.totalReturningPrice}"></p>
 			<form action="/returns-home/return" method="POST">

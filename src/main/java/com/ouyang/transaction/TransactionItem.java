@@ -19,10 +19,9 @@ public class TransactionItem {
 	@JoinColumn(name = "TRANSACTIONID")
 	@JsonBackReference
 	private Transaction transaction;
-	private Long goodsId;
+	private Long coffeeId;
 	private Integer amount;
 
-	
 	public Long getId() {
 		return id;
 	}
@@ -39,12 +38,12 @@ public class TransactionItem {
 		this.transaction = transaction;
 	}
 
-	public Long getGoodsId() {
-		return goodsId;
+	public Long getCoffeeId() {
+		return coffeeId;
 	}
 
-	public void setGoodsId(Long goodsId) {
-		this.goodsId = goodsId;
+	public void setCoffeeId(Long coffeeId) {
+		this.coffeeId = coffeeId;
 	}
 
 	public Integer getAmount() {

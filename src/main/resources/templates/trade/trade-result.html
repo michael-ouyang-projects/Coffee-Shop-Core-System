@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="UTF-8">
-		<title>Retail-Store-Core-System</title>
+		<title>Coffee-Shop-Core-System</title>
 	</head>
 	
 	<body>
@@ -13,8 +13,8 @@
 		<p th:text="'Trade Time: ' + ${tradeResponse.tradeDate}"></p>
 		<p th:text="'Total: ' + ${tradeResponse.totalPrice}"></p>
 
-		<ul th:each="buyingGoods : ${tradeResponse.buyingList}">
-		    <li th:text="'Product: ' + ${buyingGoods.goodsName} + ', Amount: ' + ${buyingGoods.amount} + ', Price: ' + ${buyingGoods.price} + ', Subtotal: ' + ${buyingGoods.subtotal}" />
+		<ul th:each="item : ${tradeResponse.buyingList}">
+		    <li th:text="'Product: ' + ${item.coffeeName} + ', Amount: ' + ${item.amount} + ', Price: ' + ${item.price} + ', Subtotal: ' + ${item.subtotal}" />
 		</ul>
 		
 		<form action="/branch-home" method="POST">

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ouyang.mvc.controller.helper.ReturnsControllerHelper;
-import com.ouyang.mvc.model.TradeGoods;
+import com.ouyang.mvc.model.TradeCoffee;
 
 @Controller
 public class ReturnsController {
@@ -29,21 +29,21 @@ public class ReturnsController {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@PostMapping("/trade-home/add-returning-goods")
-	public String addReturningGoods(@RequestParam("goodsId") Long goodsId,
+	@PostMapping("/trade-home/add-returning-coffee")
+	public String addReturningGoods(@RequestParam("coffeeId") Long coffeeId,
 									@RequestParam("amount") Integer amount,
 									HttpSession session) {
 
-		List<TradeGoods> returningList = (List<TradeGoods>) session.getAttribute("returningList");
+		List<TradeCoffee> returningList = (List<TradeCoffee>) session.getAttribute("returningList");
 		
-		TradeGoods returningGoods = helper.getReturningGoodsFromReturningListByGoodsId(returningList, goodsId);
+		TradeCoffee returningGoods = helper.getReturningItemFromReturningListByCoffeeId(returningList, coffeeId);
 		if (returningGoods != null) {
 
-			helper.setNewAmountAndSubtotalForExistReturningGoods(returningGoods, amount, session);
+			helper.setNewAmountAndSubtotalForExistReturningItem(returningGoods, amount, session);
 
 		} else {
 
-			helper.addReturningGoodsToReturningList(returningList, goodsId, amount, session);
+			helper.addReturningItemToReturningList(returningList, coffeeId, amount, session);
 
 		}
 

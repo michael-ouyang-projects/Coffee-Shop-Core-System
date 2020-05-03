@@ -10,11 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.ouyang.branch.Branch;
+import com.ouyang.coffee.Coffee;
+import com.ouyang.coffee.CoffeeService;
 import com.ouyang.customer.Customer;
 import com.ouyang.customer.CustomerService;
-import com.ouyang.goods.Goods;
-import com.ouyang.goods.GoodsService;
-import com.ouyang.mvc.model.TradeGoods;
+import com.ouyang.mvc.model.TradeCoffee;
 import com.ouyang.mvc.model.TradeRequest;
 
 @Component
@@ -24,7 +24,7 @@ public class TradeControllerHelper {
 	private CustomerService customerService;
 	
 	@Autowired
-	private GoodsService goodsService;
+	private CoffeeService goodsService;
 	
 	
 	public void initSessionDataForNewTrade(HttpSession session, Long customerId) {
@@ -34,17 +34,17 @@ public class TradeControllerHelper {
 		
 	}
 	
-	public TradeGoods getBuyingGoodsFromBuyingList(List<TradeGoods> buyingList, Long goodsId) {
+	public TradeCoffee getBuyingItemFromBuyingList(List<TradeCoffee> buyingList, Long coffeeId) {
 		
 		return buyingList
 				.stream()
-				.filter(buyingGoods -> buyingGoods.getGoodsId().equals(goodsId))
+				.filter(buyingGoods -> buyingGoods.getCoffeeId().equals(coffeeId))
 				.findFirst()
 				.orElse(null);
 
 	}
 	
-	public void setNewAmountAndSubtotalForExistBuyingGoods(TradeGoods buyingGoods, Integer amount) {
+	public void setNewAmountAndSubtotalForExistBuyingGoods(TradeCoffee buyingGoods, Integer amount) {
 		
 		int newBuyingAmount = buyingGoods.getAmount() + amount;
 		buyingGoods.setAmount(newBuyingAmount);
@@ -52,13 +52,13 @@ public class TradeControllerHelper {
 		
 	}
 	
-	public void addBuyingGoodsToBuyingList(List<TradeGoods> buyingList, Long goodsId, Integer amount) {
+	public void addBuyingItemToBuyingList(List<TradeCoffee> buyingList, Long coffeeId, Integer amount) {
 		
-		Goods goods = goodsService.queryGoodsById(goodsId);
+		Coffee goods = goodsService.queryCoffeeById(coffeeId);
 		
-		TradeGoods buyingGoods = new TradeGoods();
-		buyingGoods.setGoodsId(goods.getId());
-		buyingGoods.setGoodsName(goods.getName());
+		TradeCoffee buyingGoods = new TradeCoffee();
+		buyingGoods.setCoffeeId(goods.getId());
+		buyingGoods.setCoffeeName(goods.getName());
 		buyingGoods.setAmount(amount);
 		buyingGoods.setPrice(goods.getPrice());
 		buyingGoods.setSubtotal(goods.getPrice().multiply(new BigDecimal(amount)));
@@ -67,11 +67,11 @@ public class TradeControllerHelper {
 		
 	}
 	
-	public BigDecimal calculateTotalPrice(List<TradeGoods> buyingGoodsList) {
+	public BigDecimal calculateTotalPrice(List<TradeCoffee> buyingGoodsList) {
 		
 		return buyingGoodsList
 				.stream()
-				.map(TradeGoods::getSubtotal)
+				.map(TradeCoffee::getSubtotal)
 				.reduce(BigDecimal::add)
 				.get();
 		
@@ -83,7 +83,7 @@ public class TradeControllerHelper {
 		TradeRequest tradeRequest = new TradeRequest();
 		tradeRequest.setCustomerId(((Customer) session.getAttribute("customer")).getId());
 		tradeRequest.setBranchId(((Branch) session.getAttribute("branch")).getId());
-		tradeRequest.setBuyingList((List<TradeGoods>) session.getAttribute("buyingList"));
+		tradeRequest.setBuyingList((List<TradeCoffee>) session.getAttribute("buyingList"));
 		tradeRequest.setTotalPrice((BigDecimal) session.getAttribute("totalPrice"));
 		
 		return tradeRequest;

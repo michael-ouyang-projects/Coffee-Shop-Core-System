@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="UTF-8">
-		<title>Retail-Store-Core-System</title>
+		<title>Coffee-Shop-Core-System</title>
 	</head>
 	
 	<body>
@@ -14,9 +14,9 @@
 		
 		<br/><hr/>
 		
-		<h3>== Add Buying Goods ==</h3>
-		<form action="/trade-home/add-buying-goods" method="POST">
-			Goods Id: <input type="text" name="goodsId" /><br/><br/>
+		<h3>== Add Buying Coffee ==</h3>
+		<form action="/trade-home/add-buying-coffee" method="POST">
+			Goods Id: <input type="text" name="coffeeId" /><br/><br/>
 			Number : <input type="text" name="amount" value='1' /><br/><br/>
 			<input type="submit" value="Add" />
 		</form>
@@ -24,9 +24,9 @@
 		<br/><hr/>
 		
 		<div th:if="${!session.buyingList.empty}">
-			<h3>== Goods to Buy ==</h3>
-			<ul th:each="buyingGoods : ${session.buyingList}">
-			    <li th:text="'Product: ' + ${buyingGoods.goodsName} + ', Amount: ' + ${buyingGoods.amount} + ', Price: ' + ${buyingGoods.price} + ', Subtotal: ' + ${buyingGoods.subtotal}" />
+			<h3>== Coffee to Buy ==</h3>
+			<ul th:each="item : ${session.buyingList}">
+			    <li th:text="'Product: ' + ${item.coffeeName} + ', Amount: ' + ${item.amount} + ', Price: ' + ${item.price} + ', Subtotal: ' + ${item.subtotal}" />
 			</ul>
 			<p th:text="'Total: ' + ${session.totalPrice}"></p>
 			<form action="/trade-home/trade" method="POST">

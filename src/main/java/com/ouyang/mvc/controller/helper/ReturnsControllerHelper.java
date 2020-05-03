@@ -12,14 +12,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.ouyang.coffee.Coffee;
+import com.ouyang.coffee.CoffeeService;
 import com.ouyang.customer.CustomerService;
-import com.ouyang.goods.Goods;
-import com.ouyang.goods.GoodsService;
-import com.ouyang.mvc.model.TradeGoods;
+import com.ouyang.mvc.model.TradeCoffee;
 import com.ouyang.transaction.Transaction;
 import com.ouyang.transaction.TransactionItem;
 import com.ouyang.transaction.TransactionService;
-import com.ouyang.utils.RSCSRuntimeException;
+import com.ouyang.utils.CoffeeRuntimeException;
 
 @Component
 public class ReturnsControllerHelper {
@@ -33,7 +33,7 @@ public class ReturnsControllerHelper {
 	private CustomerService customerService;
 
 	@Autowired
-	private GoodsService goodsService;
+	private CoffeeService goodsService;
 
 	
 	public void initSessionDataForReturnsRequest(Long tradeId, HttpSession session) {
@@ -43,21 +43,21 @@ public class ReturnsControllerHelper {
 		session.setAttribute("transaction", transaction);
 		session.setAttribute("customer", customerService.queryCustomerById(transaction.getCustomerId()));
 		session.setAttribute("buyingList", createBuyingListFromTransactionItems(transaction.getItems()));
-		session.setAttribute("returningList", new ArrayList<TradeGoods>());
+		session.setAttribute("returningList", new ArrayList<TradeCoffee>());
 
 	}
 
-	private List<TradeGoods> createBuyingListFromTransactionItems(List<TransactionItem> items) {
+	private List<TradeCoffee> createBuyingListFromTransactionItems(List<TransactionItem> items) {
 
-		List<TradeGoods> buyingList = new ArrayList<>();
+		List<TradeCoffee> buyingList = new ArrayList<>();
 
 		for (TransactionItem item : items) {
 
-			Goods goods = goodsService.queryGoodsById(item.getGoodsId());
+			Coffee goods = goodsService.queryCoffeeById(item.getCoffeeId());
 
-			TradeGoods buyingGoods = new TradeGoods();
-			buyingGoods.setGoodsId(goods.getId());
-			buyingGoods.setGoodsName(goods.getName());
+			TradeCoffee buyingGoods = new TradeCoffee();
+			buyingGoods.setCoffeeId(goods.getId());
+			buyingGoods.setCoffeeName(goods.getName());
 			buyingGoods.setAmount(item.getAmount());
 			buyingGoods.setPrice(goods.getPrice());
 			buyingGoods.setSubtotal(goods.getPrice().multiply(new BigDecimal(item.getAmount())));
@@ -70,21 +70,21 @@ public class ReturnsControllerHelper {
 
 	}
 
-	public TradeGoods getReturningGoodsFromReturningListByGoodsId(List<TradeGoods> returningList, Long goodsId) {
+	public TradeCoffee getReturningItemFromReturningListByCoffeeId(List<TradeCoffee> returningList, Long goodsId) {
 
 		return returningList
 				.stream()
-				.filter(returningGoods -> returningGoods.getGoodsId().equals(goodsId))
+				.filter(returningGoods -> returningGoods.getCoffeeId().equals(goodsId))
 				.findFirst()
 				.orElse(null);
 
 	}
 
-	public void setNewAmountAndSubtotalForExistReturningGoods(TradeGoods returningGoods, Integer amount, HttpSession session) {
+	public void setNewAmountAndSubtotalForExistReturningItem(TradeCoffee returningGoods, Integer amount, HttpSession session) {
 
 		try {
 		
-			TradeGoods buyingGoods = getBuyingGoodsFromBuyingListByGoodsId(returningGoods.getGoodsId(), session);
+			TradeCoffee buyingGoods = getBuyingItemFromBuyingListByCoffeeId(returningGoods.getCoffeeId(), session);
 			int newReturningAmount = returningGoods.getAmount() + amount;
 
 			if(newReturningAmount <= buyingGoods.getAmount()) {
@@ -93,14 +93,14 @@ public class ReturnsControllerHelper {
 				
 			} else {
 				
-				throw new RSCSRuntimeException("returning amount larger than buying amount!");
+				throw new CoffeeRuntimeException("returning amount larger than buying amount!");
 				
 			}
 			
 			
 			returningGoods.setSubtotal(returningGoods.getPrice().multiply(new BigDecimal(newReturningAmount)));
 			
-		} catch (RSCSRuntimeException e) {
+		} catch (CoffeeRuntimeException e) {
 			
 			LOGGER.info(e.getMessage());
 			
@@ -108,15 +108,15 @@ public class ReturnsControllerHelper {
 
 	}
 
-	public void addReturningGoodsToReturningList(List<TradeGoods> returningList, Long goodsId, Integer amount, HttpSession session) {
+	public void addReturningItemToReturningList(List<TradeCoffee> returningList, Long goodsId, Integer amount, HttpSession session) {
 
 		try {
 			
-			TradeGoods buyingGoods = getBuyingGoodsFromBuyingListByGoodsId(goodsId, session);
+			TradeCoffee buyingGoods = getBuyingItemFromBuyingListByCoffeeId(goodsId, session);
 			
-			TradeGoods returningGoods = new TradeGoods();
-			returningGoods.setGoodsId(buyingGoods.getGoodsId());
-			returningGoods.setGoodsName(buyingGoods.getGoodsName());
+			TradeCoffee returningGoods = new TradeCoffee();
+			returningGoods.setCoffeeId(buyingGoods.getCoffeeId());
+			returningGoods.setCoffeeName(buyingGoods.getCoffeeName());
 			
 			if(amount <= buyingGoods.getAmount()) {
 				
@@ -124,7 +124,7 @@ public class ReturnsControllerHelper {
 				
 			} else {
 				
-				throw new RSCSRuntimeException("returning amount larger than buying amount!");
+				throw new CoffeeRuntimeException("returning amount larger than buying amount!");
 				
 			}
 			
@@ -137,7 +137,7 @@ public class ReturnsControllerHelper {
 			
 			LOGGER.info("returning goodsId not exist in buyingList!");
 			
-		} catch (RSCSRuntimeException e) {
+		} catch (CoffeeRuntimeException e) {
 			
 			LOGGER.info(e.getMessage());
 			
@@ -146,23 +146,23 @@ public class ReturnsControllerHelper {
 	}
 	
 	@SuppressWarnings("unchecked")
-	private TradeGoods getBuyingGoodsFromBuyingListByGoodsId(Long goodsId, HttpSession session) {
+	private TradeCoffee getBuyingItemFromBuyingListByCoffeeId(Long coffeeId, HttpSession session) {
 		
-		List<TradeGoods> buyingList = (List<TradeGoods>) session.getAttribute("buyingList");
+		List<TradeCoffee> buyingList = (List<TradeCoffee>) session.getAttribute("buyingList");
 
 		return buyingList
 				.stream()
-				.filter(buyingGoods -> buyingGoods.getGoodsId().equals(goodsId))
+				.filter(buyingGoods -> buyingGoods.getCoffeeId().equals(coffeeId))
 				.findFirst()
 				.get();
 		
 	}
 
-	public BigDecimal calculateTotalReturningPrice(List<TradeGoods> returningList) {
+	public BigDecimal calculateTotalReturningPrice(List<TradeCoffee> returningList) {
 
 		return returningList
 				.stream()
-				.map(TradeGoods::getSubtotal)
+				.map(TradeCoffee::getSubtotal)
 				.reduce(BigDecimal::add)
 				.get();
 

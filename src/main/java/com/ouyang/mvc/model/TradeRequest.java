@@ -8,7 +8,7 @@ public class TradeRequest {
 	private Long customerId;
 	private Long branchId;
 	private BigDecimal totalPrice;
-	private List<TradeGoods> buyingList;
+	private List<TradeCoffee> buyingList;
 	
 
 	public Long getCustomerId() {
@@ -35,11 +35,11 @@ public class TradeRequest {
 		this.totalPrice = totalPrice;
 	}
 
-	public List<TradeGoods> getBuyingList() {
+	public List<TradeCoffee> getBuyingList() {
 		return buyingList;
 	}
 
-	public void setBuyingList(List<TradeGoods> buyingList) {
+	public void setBuyingList(List<TradeCoffee> buyingList) {
 		this.buyingList = buyingList;
 	}
 

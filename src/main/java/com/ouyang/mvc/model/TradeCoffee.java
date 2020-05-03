@@ -2,29 +2,37 @@ package com.ouyang.mvc.model;
 
 import java.math.BigDecimal;
 
-public class TradeGoods {
+public class TradeCoffee {
 
-	private Long goodsId;
-	private String goodsName;
+	private Long coffeeId;
+	private String coffeeName;
+	private String size;
 	private Integer amount;
 	private BigDecimal price;
 	private BigDecimal subtotal;
 
-	
-	public Long getGoodsId() {
-		return goodsId;
+	public Long getCoffeeId() {
+		return coffeeId;
 	}
 
-	public void setGoodsId(Long goodsId) {
-		this.goodsId = goodsId;
+	public void setCoffeeId(Long coffeeId) {
+		this.coffeeId = coffeeId;
 	}
 
-	public String getGoodsName() {
-		return goodsName;
+	public String getCoffeeName() {
+		return coffeeName;
 	}
 
-	public void setGoodsName(String goodsName) {
-		this.goodsName = goodsName;
+	public void setCoffeeName(String coffeeName) {
+		this.coffeeName = coffeeName;
+	}
+
+	public String getSize() {
+		return size;
+	}
+
+	public void setSize(String size) {
+		this.size = size;
 	}
 
 	public Integer getAmount() {

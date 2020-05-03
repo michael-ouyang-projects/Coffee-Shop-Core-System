@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ouyang.goods.Goods;
-import com.ouyang.goods.GoodsRepository;
-import com.ouyang.mvc.model.TradeGoods;
+import com.ouyang.coffee.Coffee;
+import com.ouyang.coffee.CoffeeRepository;
+import com.ouyang.mvc.model.TradeCoffee;
 import com.ouyang.mvc.model.TradeRequest;
 import com.ouyang.mvc.model.TradeResponse;
 
@@ -22,7 +22,7 @@ public class TransactionService {
 	private TransactionRepository trasactionRepository;
 
 	@Autowired
-	private GoodsRepository goodsRepository;
+	private CoffeeRepository goodsRepository;
 	
 	
 	@Transactional(rollbackFor = Exception.class)
@@ -45,15 +45,15 @@ public class TransactionService {
 
 	}
 
-	private List<TransactionItem> createTrasactionItems(Transaction transaction, List<TradeGoods> buyingList) {
+	private List<TransactionItem> createTrasactionItems(Transaction transaction, List<TradeCoffee> buyingList) {
 
 		List<TransactionItem> trasactionItems = new ArrayList<>();
 
-		for (TradeGoods buyingGoods : buyingList) {
+		for (TradeCoffee buyingGoods : buyingList) {
 
 			TransactionItem transactionItem = new TransactionItem();
 			transactionItem.setTransaction(transaction);
-			transactionItem.setGoodsId(buyingGoods.getGoodsId());
+			transactionItem.setCoffeeId(buyingGoods.getCoffeeId());
 			transactionItem.setAmount(buyingGoods.getAmount());
 
 			trasactionItems.add(transactionItem);
@@ -76,17 +76,17 @@ public class TransactionService {
 
 	}
 
-	private List<TradeGoods> createBuyingGoodsListAfterSave(List<TransactionItem> transactionItems) {
+	private List<TradeCoffee> createBuyingGoodsListAfterSave(List<TransactionItem> transactionItems) {
 
-		List<TradeGoods> buyingGoodsList = new ArrayList<>();
+		List<TradeCoffee> buyingGoodsList = new ArrayList<>();
 
 		for (TransactionItem transactionItem : transactionItems) {
 
-			Goods goods = goodsRepository.findById(transactionItem.getGoodsId()).get();
+			Coffee goods = goodsRepository.findById(transactionItem.getCoffeeId()).get();
 			
-			TradeGoods buyingGoods = new TradeGoods();
-			buyingGoods.setGoodsId(transactionItem.getGoodsId());
-			buyingGoods.setGoodsName(goods.getName());
+			TradeCoffee buyingGoods = new TradeCoffee();
+			buyingGoods.setCoffeeId(transactionItem.getCoffeeId());
+			buyingGoods.setCoffeeName(goods.getName());
 			buyingGoods.setAmount(transactionItem.getAmount());
 			buyingGoods.setPrice(goods.getPrice());
 			buyingGoods.setSubtotal(goods.getPrice().multiply(new BigDecimal(transactionItem.getAmount())));

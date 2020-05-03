@@ -1,4 +1,4 @@
-package com.ouyang.goods;
+package com.ouyang.coffee;
 
 import java.math.BigDecimal;
 
@@ -8,12 +8,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Goods {
+public class Coffee {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
+	private String size;
 	private BigDecimal price;
 	private String type;
 
@@ -31,6 +32,14 @@ public class Goods {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getSize() {
+		return size;
+	}
+
+	public void setSize(String size) {
+		this.size = size;
 	}
 
 	public BigDecimal getPrice() {

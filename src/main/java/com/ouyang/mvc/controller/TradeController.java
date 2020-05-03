@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ouyang.mvc.controller.helper.TradeControllerHelper;
-import com.ouyang.mvc.model.TradeGoods;
+import com.ouyang.mvc.model.TradeCoffee;
 import com.ouyang.mvc.model.TradeRequest;
 import com.ouyang.mvc.model.TradeResponse;
 import com.ouyang.transaction.TransactionService;
@@ -36,21 +36,21 @@ public class TradeController {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@PostMapping("/trade-home/add-buying-goods")
-	public String addBuyingGoods(@RequestParam("goodsId") Long goodsId,
+	@PostMapping("/trade-home/add-buying-coffee")
+	public String addBuyingGoods(@RequestParam("coffeeId") Long coffeeId,
 							 	 @RequestParam("amount") Integer amount,
 							 	 HttpSession session) {
 
-		List<TradeGoods> buyingList = (List<TradeGoods>) session.getAttribute("buyingList");
+		List<TradeCoffee> buyingList = (List<TradeCoffee>) session.getAttribute("buyingList");
 		
-		TradeGoods buyingGoods = helper.getBuyingGoodsFromBuyingList(buyingList, goodsId);
+		TradeCoffee buyingGoods = helper.getBuyingItemFromBuyingList(buyingList, coffeeId);
 		if(buyingGoods != null) {
 
 			helper.setNewAmountAndSubtotalForExistBuyingGoods(buyingGoods, amount);
 			
 		} else {
 			
-			helper.addBuyingGoodsToBuyingList(buyingList, goodsId, amount);
+			helper.addBuyingItemToBuyingList(buyingList, coffeeId, amount);
 			
 		}
 		

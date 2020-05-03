@@ -12,7 +12,7 @@ import com.ouyang.branch.Branch;
 import com.ouyang.branch.BranchService;
 
 @SpringBootApplication
-public class RetailStoreApplication {
+public class CoffeeApplication {
 
 	@Autowired
 	private BranchService branchService;
@@ -20,7 +20,7 @@ public class RetailStoreApplication {
 	
 	public static void main(String[] args) {
 
-		SpringApplication.run(RetailStoreApplication.class, args);
+		SpringApplication.run(CoffeeApplication.class, args);
 
 	}
 

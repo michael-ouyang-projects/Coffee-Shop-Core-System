@@ -1,10 +1,10 @@
-package com.ouyang.goods;
+package com.ouyang.coffee;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface GoodsRepository extends CrudRepository<Goods, Long> {
+public interface CoffeeRepository extends CrudRepository<Coffee, Long> {
 
 	
 	
