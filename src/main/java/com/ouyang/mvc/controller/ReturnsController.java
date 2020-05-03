@@ -39,7 +39,7 @@ public class ReturnsController {
 		TradeGoods returningGoods = helper.getReturningGoodsFromReturningListByGoodsId(returningList, goodsId);
 		if (returningGoods != null) {
 
-			helper.setNewAmountAndSubtotalForExistReturningGoods(returningGoods, amount);
+			helper.setNewAmountAndSubtotalForExistReturningGoods(returningGoods, amount, session);
 
 		} else {
 

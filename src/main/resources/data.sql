@@ -1,18 +1,18 @@
 INSERT INTO branch (id, name, address) 
 VALUES
-  (1, 'Kaohsiung', 'No.1, Ziqiang 3rd Rd., Lingya District, Kaohsiung City'),
-  (2, 'New York', 'Po Box 422 South Fallsburg, New York(NY)'),
-  (3, 'Sydney', '3 Doris St, North Sydney, NSW 2060'),
-  (4, 'London', '46 St. John’s Road, East Central London, EC52 3BJ'),
-  (5, 'Shanghai', '297 Box, 130 Meilong Road, Shanghai, China');
+  (1, 'Branch 1', 'Branch 1, Address'),
+  (2, 'Branch 2', 'Branch 2, Address'),
+  (3, 'Branch 3', 'Branch 3, Address'),
+  (4, 'Branch 4', 'Branch 4, Address'),
+  (5, 'Branch 5', 'Branch 5, Address');
 
 INSERT INTO goods (id, name, price, type) 
 VALUES
-  (1, 'Milk', 4, 'food'),
-  (2, 'Hotdog', 3, 'food'),
-  (3, 'Pizza', 6, 'food'),
-  (4, 'Jeans', 10, 'clothes'),
-  (5, 'Underwear', 12, 'clothes');
+  (1, 'Goods 1', 1, 'food'),
+  (2, 'Goods 2', 2, 'food'),
+  (3, 'Goods 3', 3, 'food'),
+  (4, 'Goods 4', 4, 'clothes'),
+  (5, 'Goods 5', 5, 'clothes');
 
 INSERT INTO customer (id, name, sex, age) 
 VALUES

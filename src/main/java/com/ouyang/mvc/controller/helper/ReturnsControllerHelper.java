@@ -3,9 +3,12 @@ package com.ouyang.mvc.controller.helper;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,10 +19,13 @@ import com.ouyang.mvc.model.TradeGoods;
 import com.ouyang.transaction.Transaction;
 import com.ouyang.transaction.TransactionItem;
 import com.ouyang.transaction.TransactionService;
+import com.ouyang.utils.RSCSRuntimeException;
 
 @Component
 public class ReturnsControllerHelper {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(ReturnsControllerHelper.class);
+	
 	@Autowired
 	private TransactionService transactionService;
 
@@ -74,26 +80,68 @@ public class ReturnsControllerHelper {
 
 	}
 
-	public void setNewAmountAndSubtotalForExistReturningGoods(TradeGoods returningGoods, Integer amount) {
+	public void setNewAmountAndSubtotalForExistReturningGoods(TradeGoods returningGoods, Integer amount, HttpSession session) {
 
-		int newReturningAmount = returningGoods.getAmount() + amount;
-		returningGoods.setAmount(newReturningAmount);
-		returningGoods.setSubtotal(returningGoods.getPrice().multiply(new BigDecimal(newReturningAmount)));
+		try {
+		
+			TradeGoods buyingGoods = getBuyingGoodsFromBuyingListByGoodsId(returningGoods.getGoodsId(), session);
+			int newReturningAmount = returningGoods.getAmount() + amount;
+
+			if(newReturningAmount <= buyingGoods.getAmount()) {
+				
+				returningGoods.setAmount(newReturningAmount);
+				
+			} else {
+				
+				throw new RSCSRuntimeException("returning amount larger than buying amount!");
+				
+			}
+			
+			
+			returningGoods.setSubtotal(returningGoods.getPrice().multiply(new BigDecimal(newReturningAmount)));
+			
+		} catch (RSCSRuntimeException e) {
+			
+			LOGGER.info(e.getMessage());
+			
+		}
 
 	}
 
 	public void addReturningGoodsToReturningList(List<TradeGoods> returningList, Long goodsId, Integer amount, HttpSession session) {
 
-		TradeGoods buyingGoods = getBuyingGoodsFromBuyingListByGoodsId(goodsId, session);
+		try {
+			
+			TradeGoods buyingGoods = getBuyingGoodsFromBuyingListByGoodsId(goodsId, session);
+			
+			TradeGoods returningGoods = new TradeGoods();
+			returningGoods.setGoodsId(buyingGoods.getGoodsId());
+			returningGoods.setGoodsName(buyingGoods.getGoodsName());
+			
+			if(amount <= buyingGoods.getAmount()) {
+				
+				returningGoods.setAmount(amount);
+				
+			} else {
+				
+				throw new RSCSRuntimeException("returning amount larger than buying amount!");
+				
+			}
+			
+			returningGoods.setPrice(buyingGoods.getPrice());
+			returningGoods.setSubtotal(buyingGoods.getPrice().multiply(new BigDecimal(amount)));
 
-		TradeGoods returningGoods = new TradeGoods();
-		returningGoods.setGoodsId(buyingGoods.getGoodsId());
-		returningGoods.setGoodsName(buyingGoods.getGoodsName());
-		returningGoods.setAmount(amount);
-		returningGoods.setPrice(buyingGoods.getPrice());
-		returningGoods.setSubtotal(buyingGoods.getPrice().multiply(new BigDecimal(amount)));
-
-		returningList.add(returningGoods);
+			returningList.add(returningGoods);
+			
+		} catch (NoSuchElementException e) {
+			
+			LOGGER.info("returning goodsId not exist in buyingList!");
+			
+		} catch (RSCSRuntimeException e) {
+			
+			LOGGER.info(e.getMessage());
+			
+		}
 
 	}
 	
