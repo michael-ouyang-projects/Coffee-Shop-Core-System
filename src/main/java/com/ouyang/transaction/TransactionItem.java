@@ -20,7 +20,7 @@ public class TransactionItem {
 	@JsonBackReference
 	private Transaction transaction;
 	private Long goodsId;
-	private Integer amount;;
+	private Integer amount;
 
 	
 	public Long getId() {
