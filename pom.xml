@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.ouyang</groupId>
-	<artifactId>CoffeeShopApp</artifactId>
+	<artifactId>coffee</artifactId>
 	<version>1.0</version>
 	<name>CoffeeShopApp</name>
 	<description>Coffee-Shop-Core-System</description>
