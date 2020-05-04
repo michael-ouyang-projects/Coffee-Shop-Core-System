@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.ouyang</groupId>
-	<artifactId>rscs</artifactId>
+	<artifactId>CoffeeShopApp</artifactId>
 	<version>1.0</version>
-	<name>rscs</name>
-	<description>Retail-Store-Core-System_Store-Service</description>
+	<name>CoffeeShopApp</name>
+	<description>Coffee-Shop-Core-System</description>
 
 	<properties>
 		<java.version>1.8</java.version>
