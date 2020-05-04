@@ -8,6 +8,13 @@
 	<body>
 	
 		<h1>Something went wrong!</h1>
+		<h3 th:text="'Error Message: ' + ${errorMessage}"></h3>
+		
+<!-- 		<form action="/home" method="GET"> -->
+<!--             <button type="submit">Back to Last Page</button> -->
+<!--         </form> -->
+        
+<!--         <br/> -->
 
 		<form action="/branch-home" method="POST">
 		    <button type="submit">Back to Branch Home</button>
