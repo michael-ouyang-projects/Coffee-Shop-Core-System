@@ -7,6 +7,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
 
 @Aspect
 @Component
@@ -27,7 +28,7 @@ public class AopPointcut {
     }
 
     @Around("controllerPublicMethod()")
-    public String interceptRequest(ProceedingJoinPoint joinPoint) {
+    public String processRequest(ProceedingJoinPoint joinPoint) {
 
         try {
 
@@ -36,6 +37,7 @@ public class AopPointcut {
         } catch (Throwable e) {
 
             LOGGER.info("{}", e.getMessage());
+            RequestContextHolder.getRequestAttributes().setAttribute("errorMessage", e.getMessage(), 0);
             return "error.html";
 
         }
