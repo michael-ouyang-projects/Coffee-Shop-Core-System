@@ -16,64 +16,63 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 public class Transaction {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private Date tradeDate;
-	private Long customerId;
-	private Long branchId;
-	private BigDecimal totalPrice;
-	@OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL)
-	@JsonManagedReference
-	private List<TransactionItem> items;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private Date tradeDate;
+    private Long customerId;
+    private Long branchId;
+    private BigDecimal totalPrice;
+    @OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<TransactionItem> items;
 
-	
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public Date getTradeDate() {
-		return tradeDate;
-	}
+    public Date getTradeDate() {
+        return tradeDate;
+    }
 
-	public void setTradeDate(Date tradeDate) {
-		this.tradeDate = tradeDate;
-	}
+    public void setTradeDate(Date tradeDate) {
+        this.tradeDate = tradeDate;
+    }
 
-	public Long getCustomerId() {
-		return customerId;
-	}
+    public Long getCustomerId() {
+        return customerId;
+    }
 
-	public void setCustomerId(Long customerId) {
-		this.customerId = customerId;
-	}
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
+    }
 
-	public Long getBranchId() {
-		return branchId;
-	}
+    public Long getBranchId() {
+        return branchId;
+    }
 
-	public void setBranchId(Long branchId) {
-		this.branchId = branchId;
-	}
+    public void setBranchId(Long branchId) {
+        this.branchId = branchId;
+    }
 
-	public BigDecimal getTotalPrice() {
-		return totalPrice;
-	}
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
 
-	public void setTotalPrice(BigDecimal totalPrice) {
-		this.totalPrice = totalPrice;
-	}
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
+    }
 
-	public List<TransactionItem> getItems() {
-		return items;
-	}
+    public List<TransactionItem> getItems() {
+        return items;
+    }
 
-	public void setItems(List<TransactionItem> items) {
-		this.items = items;
-	}
+    public void setItems(List<TransactionItem> items) {
+        this.items = items;
+    }
 
 }
