@@ -13,26 +13,26 @@ import com.ouyang.branch.BranchService;
 @Controller
 public class HomeController {
 
-	@Autowired
-	private BranchService branchService;
+    @Autowired
+    private BranchService branchService;
 
-	@GetMapping(value = { "/", "/home" })
-	public String home() {
+    @GetMapping(value = {"/", "/home" })
+    public String home() {
 
-		return "home.html";
+        return "home.html";
 
-	}
+    }
 
-	@PostMapping("/branch-home")
-	public String branchHome(@RequestParam(value = "branchName", required = false) String branchName, 
-							 HttpSession session) {
-		
-		if(branchName != null) {
-			session.setAttribute("branch", branchService.queryByName(branchName));
-		}
-		
-		return "branch/branch-home.html";
+    @PostMapping("/branch-home")
+    public String branchHome(@RequestParam(value = "branchName", required = false) String branchName,
+            HttpSession session) {
 
-	}
+        if (branchName != null) {
+            session.setAttribute("branch", branchService.queryByName(branchName));
+        }
+
+        return "branch/branch-home.html";
+
+    }
 
 }
