@@ -5,42 +5,41 @@ import java.util.List;
 
 public class TradeRequest {
 
-	private Long customerId;
-	private Long branchId;
-	private BigDecimal totalPrice;
-	private List<TradeCoffee> buyingList;
-	
+    private Long customerId;
+    private Long branchId;
+    private BigDecimal totalPrice;
+    private List<TradeCoffee> tradeList;
 
-	public Long getCustomerId() {
-		return customerId;
-	}
+    public Long getCustomerId() {
+        return customerId;
+    }
 
-	public void setCustomerId(Long customerId) {
-		this.customerId = customerId;
-	}
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
+    }
 
-	public Long getBranchId() {
-		return branchId;
-	}
+    public Long getBranchId() {
+        return branchId;
+    }
 
-	public void setBranchId(Long branchId) {
-		this.branchId = branchId;
-	}
-	
-	public BigDecimal getTotalPrice() {
-		return totalPrice;
-	}
+    public void setBranchId(Long branchId) {
+        this.branchId = branchId;
+    }
 
-	public void setTotalPrice(BigDecimal totalPrice) {
-		this.totalPrice = totalPrice;
-	}
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
 
-	public List<TradeCoffee> getBuyingList() {
-		return buyingList;
-	}
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
+    }
 
-	public void setBuyingList(List<TradeCoffee> buyingList) {
-		this.buyingList = buyingList;
-	}
+    public List<TradeCoffee> getTradeList() {
+        return tradeList;
+    }
+
+    public void setTradeList(List<TradeCoffee> tradeList) {
+        this.tradeList = tradeList;
+    }
 
 }
