@@ -6,42 +6,41 @@ import java.util.List;
 
 public class TradeResponse {
 
-	private Long tradeId;
-	private Date tradeDate;
-	private BigDecimal totalPrice;
-	private List<TradeCoffee> buyingList;
+    private Long tradeId;
+    private Date tradeDate;
+    private BigDecimal totalPrice;
+    private List<TradeCoffee> tradeList;
 
-	
-	public Long getTradeId() {
-		return tradeId;
-	}
+    public Long getTradeId() {
+        return tradeId;
+    }
 
-	public void setTradeId(Long tradeId) {
-		this.tradeId = tradeId;
-	}
+    public void setTradeId(Long tradeId) {
+        this.tradeId = tradeId;
+    }
 
-	public Date getTradeDate() {
-		return tradeDate;
-	}
+    public Date getTradeDate() {
+        return tradeDate;
+    }
 
-	public void setTradeDate(Date tradeDate) {
-		this.tradeDate = tradeDate;
-	}
+    public void setTradeDate(Date tradeDate) {
+        this.tradeDate = tradeDate;
+    }
 
-	public BigDecimal getTotalPrice() {
-		return totalPrice;
-	}
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
 
-	public void setTotalPrice(BigDecimal totalPrice) {
-		this.totalPrice = totalPrice;
-	}
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
+    }
 
-	public List<TradeCoffee> getBuyingList() {
-		return buyingList;
-	}
+    public List<TradeCoffee> getTradeList() {
+        return tradeList;
+    }
 
-	public void setBuyingList(List<TradeCoffee> buyingList) {
-		this.buyingList = buyingList;
-	}
+    public void setTradeList(List<TradeCoffee> tradeList) {
+        this.tradeList = tradeList;
+    }
 
 }
