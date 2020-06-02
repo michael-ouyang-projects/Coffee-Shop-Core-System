@@ -5,7 +5,7 @@ Purpose: This is a Java Web Application that deal with Coffee Shop's daily deman
 Technology: Spring Framework, Thymeleaf, Mysql, Kafka, Docker, Google Cloud Platform.
 
 Use Cases:
-  1. Coffee Trading.
+  1. Coffee Trading/Returning.
   2. Create and Update Customers' Info, Coffee's Info, Branches' Info and all the other Business Components.
   3. Create reports for managers to observe and evaluate market conditions.
   4. Real time automatic inventory management. 
