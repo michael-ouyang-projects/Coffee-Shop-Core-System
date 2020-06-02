@@ -3,6 +3,7 @@ package com.ouyang.transaction;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -25,7 +26,10 @@ public class TransactionService {
     private TransactionRepository trasactionRepository;
 
     @Autowired
-    private CoffeeRepository goodsRepository;
+    private TransactionItemRepository transactionItemRepository;
+
+    @Autowired
+    private CoffeeRepository coffeeRepository;
 
     @Transactional(rollbackFor = Exception.class)
     public TradeResponse trade(TradeRequest tradeRequest) {
@@ -90,7 +94,7 @@ public class TransactionService {
 
             }
 
-            Coffee coffee = goodsRepository.findById(transactionItem.getCoffeeId()).get();
+            Coffee coffee = coffeeRepository.findById(transactionItem.getCoffeeId()).get();
 
             TradeCoffee buyingGoods = new TradeCoffee();
             buyingGoods.setCoffeeId(transactionItem.getCoffeeId());
@@ -125,18 +129,37 @@ public class TransactionService {
     @Transactional(rollbackFor = Exception.class)
     public TradeResponse doReturn(HttpSession session) {
 
+        Transaction transaction = (Transaction) session.getAttribute("transaction");
         BigDecimal totalReturningPrice = (BigDecimal) session.getAttribute("totalReturningPrice");
         List<TradeCoffee> returningList = (List<TradeCoffee>) session.getAttribute("returningList");
 
-        Transaction transaction = (Transaction) session.getAttribute("transaction");
+        Iterator<TransactionItem> transactionitems = null;
+        for (TradeCoffee returningItem : returningList) {
+
+            transactionitems = transaction.getItems().listIterator();
+            while (transactionitems.hasNext()) {
+
+                TransactionItem item = transactionitems.next();
+
+                if (item.getCoffeeId().equals(returningItem.getCoffeeId())) {
+
+                    int newAmount = item.getAmount() - returningItem.getAmount();
+                    if (newAmount > 0) {
+
+                        item.setAmount(newAmount);
+
+                    } else {
+
+                        transactionitems.remove();
+                        transactionItemRepository.deleteById(item.getId());
+
+                    }
+
+                    break;
+                }
+            }
+        }
         transaction.setTotalPrice(transaction.getTotalPrice().subtract(totalReturningPrice));
-        List<TransactionItem> items = transaction.getItems();
-        returningList.forEach(returnsItem -> {
-
-            TransactionItem item = items.stream().filter(tmpItem -> tmpItem.getCoffeeId().equals(returnsItem.getCoffeeId())).findFirst().get();
-            item.setAmount(item.getAmount() - returnsItem.getAmount());
-
-        });
 
         transaction = trasactionRepository.save(transaction);
         return this.createTradeResponse(transaction);
