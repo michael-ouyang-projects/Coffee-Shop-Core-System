@@ -10,10 +10,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.ouyang.branch.Branch;
 import com.ouyang.coffee.Coffee;
 import com.ouyang.coffee.CoffeeService;
+import com.ouyang.customer.Customer;
 import com.ouyang.customer.CustomerService;
 import com.ouyang.mvc.model.TradeCoffee;
+import com.ouyang.mvc.model.TradeRequest;
 import com.ouyang.transaction.Transaction;
 import com.ouyang.transaction.TransactionItem;
 import com.ouyang.transaction.TransactionService;
@@ -48,14 +51,14 @@ public class ReturnsControllerHelper {
 
         for (TransactionItem item : items) {
 
-            Coffee goods = goodsService.queryCoffeeById(item.getCoffeeId());
+            Coffee coffee = goodsService.queryCoffeeById(item.getCoffeeId());
 
             TradeCoffee buyingGoods = new TradeCoffee();
-            buyingGoods.setCoffeeId(goods.getId());
-            buyingGoods.setCoffeeName(goods.getName());
+            buyingGoods.setCoffeeId(coffee.getId());
+            buyingGoods.setCoffeeName(coffee.getName());
             buyingGoods.setAmount(item.getAmount());
-            buyingGoods.setPrice(goods.getPrice());
-            buyingGoods.setSubtotal(goods.getPrice().multiply(new BigDecimal(item.getAmount())));
+            buyingGoods.setPrice(coffee.getPrice());
+            buyingGoods.setSubtotal(coffee.getPrice().multiply(new BigDecimal(item.getAmount())));
 
             buyingList.add(buyingGoods);
 
@@ -116,6 +119,19 @@ public class ReturnsControllerHelper {
         returningGoods.setSubtotal(buyingGoods.getPrice().multiply(new BigDecimal(amount)));
 
         returningList.add(returningGoods);
+
+    }
+
+    @SuppressWarnings("unchecked")
+    public TradeRequest createReturnsRequest(HttpSession session) {
+
+        TradeRequest retrunsRequest = new TradeRequest();
+        retrunsRequest.setCustomerId(((Customer) session.getAttribute("customer")).getId());
+        retrunsRequest.setBranchId(((Branch) session.getAttribute("branch")).getId());
+        retrunsRequest.setTotalPrice((BigDecimal) session.getAttribute("totalReturningPrice"));
+        retrunsRequest.setTradeList((List<TradeCoffee>) session.getAttribute("returningList"));
+
+        return retrunsRequest;
 
     }
 
