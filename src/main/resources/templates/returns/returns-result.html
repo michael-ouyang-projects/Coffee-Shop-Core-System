@@ -14,12 +14,12 @@
     
     <body>
         <div class="container">
-            <br/><h1>== Invoice ==</h1>
-            
+            <br/><h1>== Invoice After Returns ==</h1>
+
             <p th:text="'Trade ID: ' + ${tradeResponse.tradeId}"></p>
             <p th:text="'Trade Time: ' + ${tradeResponse.tradeDate}"></p>
             <p th:text="'Total: ' + ${tradeResponse.totalPrice}"></p>
-    
+
             <ul th:each="item : ${tradeResponse.tradeList}">
                 <li th:text="'Product: ' + ${item.coffeeName} + ', Amount: ' + ${item.amount} + ', Price: ' + ${item.price} + ', Subtotal: ' + ${item.subtotal}" />
             </ul>
@@ -27,6 +27,6 @@
             <form action="/branch-home" method="GET">
                 <button type="submit">Back to Home</button>
             </form>
-       </div>
+        </div>
     </body>
 </html>
