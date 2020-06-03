@@ -1,20 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<meta charset="UTF-8">
-		<title>Coffee-Shop-Core-System</title>
-	</head>
-	
-	<body>
-	
-		<h1>== Welcome to Coffee-Shop-Core-System ==</h1>
-		
-		Below are all the branch, choose one for this branch.
-		<form action="/branch-home" method="POST">
-			<ul th:each="branch : ${@branches}">
-		    	<li><input type="submit" name="branchName" th:value="${branch.name}" /></li>
-			</ul>
-		</form>
-	
-	</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <title>Coffee-Shop-Core-System</title>
+        <meta name="description" content=""/>
+        <meta name="viewport" content="width=device-width"/>
+        <base href="/"/>
+        <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+        <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    </head>
+
+    <body>
+        <div class="container">
+            <br/><h1>== Welcome to Coffee-Shop-Core-System ==</h1>
+
+            Below are all the branch, choose one for this branch.<br/><br/>
+            <form action="/branch-home" method="POST">
+	            <ul th:each="branch : ${@branches}">
+	                <li><input type="submit" name="branchName" th:value="${branch.name}" /></li>
+	            </ul>
+            </form>
+        </div>
+    </body>
 </html>
