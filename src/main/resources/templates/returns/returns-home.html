@@ -1,45 +1,53 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<meta charset="UTF-8">
-		<title>Coffee-Shop-Core-System</title>
-	</head>
-	
-	<body>
-	
-		<h1>== Returns Section ==</h1>
-		
-		<h3>== Trade info ==</h3>
-		<div th:text="'Trade Id => ' + ${session.transaction.id}"></div>
-		<div th:text="'Customer => Id: ' + ${session.customer.id} + ', Name: ' + ${session.customer.name}"></div>
-		<div th:text="'Trade Date: ' + ${session.transaction.tradeDate}"></div>
-		<div th:text="'Total: ' + ${session.transaction.totalPrice}"></div>
-		<ul th:each="item : ${session.buyingList}">
-		    <li th:text="'Coffee Id: ' + ${item.coffeeId} + ', Name: ' + ${item.coffeeName} + ', Amount: ' + ${item.amount} + ', Price: ' + ${item.price} + ', Subtotal: ' + ${item.subtotal}" />
-		</ul>
-		
-		<br/><hr/>
-		
-		<h3>== Add Returning Goods ==</h3>
-		<form action="/trade-home/add-returning-coffee" method="POST">
-			Goods Id: <input type="text" name="coffeeId" /><br/><br/>
-			Number : <input type="text" name="amount" value='1' /><br/><br/>
-			<input type="submit" value="Add" />
-		</form>
-		
-		<br/><hr/>
-		
-		<div th:if="${!session.returningList.empty}">
-			<h3>== Coffee to Return ==</h3>
-			<ul th:each="item: ${session.returningList}">
-			    <li th:text="'Product: ' + ${item.coffeeName} + ', Amount: ' + ${item.amount} + ', Price: ' + ${item.price} + ', Subtotal: ' + ${item.subtotal}" />
-			</ul>
-			<p th:text="'Total Returning Price: ' + ${session.totalReturningPrice}"></p>
-			<form action="/returns-home/return" method="POST">
-				<input type="submit" value="Confirm" />
-			</form>
-			<br/><hr/>
-		</div>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <title>Coffee-Shop-Core-System</title>
+        <meta name="description" content=""/>
+        <meta name="viewport" content="width=device-width"/>
+        <base href="/"/>
+        <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+        <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    </head>
 
-	</body>
+    <body>
+        <div class="container">
+            <br/><h1>== Returns Section ==</h1>
+
+            <h3>== Trade info ==</h3>
+            <div th:text="'Trade Id => ' + ${session.transaction.id}"></div>
+            <div th:text="'Customer => Id: ' + ${session.customer.id} + ', Name: ' + ${session.customer.name}"></div>
+            <div th:text="'Trade Date: ' + ${session.transaction.tradeDate}"></div>
+            <div th:text="'Total: ' + ${session.transaction.totalPrice}"></div>
+            <ul th:each="item : ${session.buyingList}">
+                <li th:text="'Coffee Id: ' + ${item.coffeeId} + ', Name: ' + ${item.coffeeName} + ', Amount: ' + ${item.amount} + ', Price: ' + ${item.price} + ', Subtotal: ' + ${item.subtotal}" />
+            </ul>
+            
+            <br/><hr/>
+            
+            <h3>== Add Returning Goods ==</h3>
+            <form action="/trade-home/add-returning-coffee" method="POST">
+                Goods Id: <input type="text" name="coffeeId" /><br/><br/>
+                Number : <input type="text" name="amount" value='1' /><br/><br/>
+                <input type="submit" value="Add" />
+            </form>
+            
+            <br/><hr/>
+            
+            <div th:if="${!session.returningList.empty}">
+                <h3>== Coffee to Return ==</h3>
+                <ul th:each="item: ${session.returningList}">
+                    <li th:text="'Product: ' + ${item.coffeeName} + ', Amount: ' + ${item.amount} + ', Price: ' + ${item.price} + ', Subtotal: ' + ${item.subtotal}" />
+                </ul>
+                <p th:text="'Total Returning Price: ' + ${session.totalReturningPrice}"></p>
+                <form action="/returns-home/return" method="POST">
+                    <input type="submit" value="Confirm" />
+                </form>
+                <br/><hr/>
+            </div>
+
+        </div>
+    </body>
 </html>
