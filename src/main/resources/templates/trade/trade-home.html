@@ -1,39 +1,46 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<meta charset="UTF-8">
-		<title>Coffee-Shop-Core-System</title>
-	</head>
-	
-	<body>
-	
-		<h1>== Trading Section ==</h1>
-	
-		<h3>== Customer info ==</h3>
-		<div th:text="'Id: ' + ${session.customer.id} + ', Name: ' + ${session.customer.name}"></div>
-		
-		<br/><hr/>
-		
-		<h3>== Add Buying Coffee ==</h3>
-		<form action="/trade-home/add-buying-coffee" method="POST">
-			Coffee Id: <input type="text" name="coffeeId" /><br/><br/>
-			Number : <input type="text" name="amount" value='1' /><br/><br/>
-			<input type="submit" value="Add" />
-		</form>
-		
-		<br/><hr/>
-		
-		<div th:if="${!session.buyingList.empty}">
-			<h3>== Coffee to Buy ==</h3>
-			<ul th:each="item : ${session.buyingList}">
-			    <li th:text="'Product: ' + ${item.coffeeName} + ', Amount: ' + ${item.amount} + ', Price: ' + ${item.price} + ', Subtotal: ' + ${item.subtotal}" />
-			</ul>
-			<p th:text="'Total: ' + ${session.totalPrice}"></p>
-			<form action="/trade-home/trade" method="POST">
-				<input type="submit" value="Confirm" />
-			</form>
-			<br/><hr/>
-		</div>
-
-	</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <title>Coffee-Shop-Core-System</title>
+        <meta name="description" content=""/>
+        <meta name="viewport" content="width=device-width"/>
+        <base href="/"/>
+        <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+        <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    </head>
+    
+    <body>
+        <div class="container">
+            <br/><h1>== Trading Section ==</h1>
+        
+            <h3>== Customer info ==</h3>
+            <div th:text="'Id: ' + ${session.customer.id} + ', Name: ' + ${session.customer.name}"></div>
+            
+            <br/><hr/>
+            
+            <h3>== Add Buying Coffee ==</h3>
+            <form action="/trade-home/add-buying-coffee" method="POST">
+                Coffee Id: <input type="text" name="coffeeId" /><br/><br/>
+                Number : <input type="text" name="amount" value='1' /><br/><br/>
+                <input type="submit" value="Add" />
+            </form>
+            
+            <br/><hr/>
+            
+            <div th:if="${!session.buyingList.empty}">
+                <h3>== Coffee to Buy ==</h3>
+                <ul th:each="item : ${session.buyingList}">
+                    <li th:text="'Product: ' + ${item.coffeeName} + ', Amount: ' + ${item.amount} + ', Price: ' + ${item.price} + ', Subtotal: ' + ${item.subtotal}" />
+                </ul>
+                <p th:text="'Total: ' + ${session.totalPrice}"></p>
+                <form action="/trade-home/trade" method="POST">
+                    <input type="submit" value="Confirm" />
+                </form>
+                <br/><hr/>
+            </div>
+        </div>
+    </body>
 </html>
