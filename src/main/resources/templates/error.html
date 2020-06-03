@@ -18,6 +18,7 @@
             <h3 th:text="'Error Message: ' + ${errorMessage}"></h3>
     
             <form action="/branch-home" method="POST">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                 <button type="submit">Back to Branch Home</button>
             </form>
             
