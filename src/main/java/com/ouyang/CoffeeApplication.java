@@ -14,28 +14,27 @@ import com.ouyang.branch.BranchService;
 @SpringBootApplication
 public class CoffeeApplication {
 
-	@Autowired
-	private BranchService branchService;
+    @Autowired
+    private BranchService branchService;
 
-	
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-		SpringApplication.run(CoffeeApplication.class, args);
+        SpringApplication.run(CoffeeApplication.class, args);
 
-	}
+    }
 
-	@Bean
-	public List<Branch> branches() {
+    @Bean
+    public List<Branch> branches() {
 
-		return branchService.queryAllBranches();
+        return branchService.queryAllBranches();
 
-	}
-	
-	@Bean
-	public ObjectMapper objectMapper() {
-		
-		return new ObjectMapper();
-		
-	}
+    }
+
+    @Bean
+    public ObjectMapper objectMapper() {
+
+        return new ObjectMapper();
+
+    }
 
 }
