@@ -31,6 +31,7 @@
             <form action="/trade-home/add-returning-coffee" method="POST">
                 Goods Id: <input type="text" name="coffeeId" /><br/><br/>
                 Number : <input type="text" name="amount" value='1' /><br/><br/>
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                 <input type="submit" value="Add" />
             </form>
             
@@ -43,6 +44,7 @@
                 </ul>
                 <p th:text="'Total Returning Price: ' + ${session.totalReturningPrice}"></p>
                 <form action="/returns-home/return" method="POST">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                     <input type="submit" value="Confirm" />
                 </form>
                 <br/><hr/>
