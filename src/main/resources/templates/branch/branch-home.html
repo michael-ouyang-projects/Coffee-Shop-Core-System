@@ -1,31 +1,39 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<meta charset="UTF-8">
-		<title>Coffee-Shop-Core-System</title>
-	</head>
-	
-	<body>
-	
-		<h1 th:text="'== Welcome to ' + ${session.branch.name} + ' Branch =='"></h1>
-		
-		Trading Section: <br/><br/>
-		<form action="/trade-home" method="POST">
-			Customer Id: 
-			<input type="text" name="customerId" />
-			<input type="submit" value="Submit" />
-		</form>
-		
-		<br/><hr/>
-		
-		Returns Section: <br/><br/>
-		<form action="/returns-home" method="POST">
-			Trade Id: 
-			<input type="text" name="tradeId" />
-			<input type="submit" value="Submit" />
-		</form>
-		
-		<br/><hr/>
-	
-	</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <title>Coffee-Shop-Core-System</title>
+        <meta name="description" content=""/>
+        <meta name="viewport" content="width=device-width"/>
+        <base href="/"/>
+        <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+        <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    </head>
+
+    <body>
+        <div class="container">
+            <br/><h1 th:text="'== Welcome to ' + ${session.branch.name} + ' Branch =='"></h1>
+
+            Trading Section: <br/><br/>
+            <form action="/trade-home" method="POST">
+                Customer Id: 
+                <input type="text" name="customerId" />
+                <input type="submit" value="Submit" />
+            </form>
+
+            <br/><hr/>
+
+            Returns Section: <br/><br/>
+            <form action="/returns-home" method="POST">
+                Trade Id: 
+                <input type="text" name="tradeId" />
+                <input type="submit" value="Submit" />
+            </form>
+
+            <br/><hr/>
+
+        </div>
+    </body>
 </html>
