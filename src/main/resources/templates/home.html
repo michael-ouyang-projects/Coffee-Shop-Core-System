@@ -14,13 +14,19 @@
 
     <body>
         <div class="container">
-            <br/><h1>== Welcome to Coffee-Shop-Core-System ==</h1>
+            <br/><h1>== Coffee-Shop-Core-System ==</h1>
 
             Below are all the branch, choose one for this branch.<br/><br/>
             <form action="/branch-home" method="POST">
-	            <ul th:each="branch : ${@branches}">
-	                <li><input type="submit" name="branchName" th:value="${branch.name}" /></li>
-	            </ul>
+                <ul th:each="branch : ${@branches}">
+                    <li><input type="submit" name="branchName" th:value="${branch.name}" /></li>
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                </ul>
+            </form><hr/>
+
+            <form th:action="@{/logout}" method="POST">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                <input type="submit" value="Sign Out"/>
             </form>
         </div>
     </body>
