@@ -24,7 +24,7 @@
                 <li th:text="'Product: ' + ${item.coffeeName} + ', Amount: ' + ${item.amount} + ', Price: ' + ${item.price} + ', Subtotal: ' + ${item.subtotal}" />
             </ul>
             
-            <form action="/branch-home" method="POST">
+            <form action="/branch-home" method="GET">
                 <button type="submit">Back to Home</button>
             </form>
        </div>
