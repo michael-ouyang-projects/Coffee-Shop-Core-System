@@ -2,24 +2,31 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
         <title>Coffee-Shop-Core-System</title>
+        <meta name="description" content=""/>
+        <meta name="viewport" content="width=device-width"/>
+        <base href="/"/>
+        <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+        <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
     </head>
     
     <body>
-    
-        <h1>== Invoice After Returns ==</h1>
-        
-        <p th:text="'Trade ID: ' + ${tradeResponse.tradeId}"></p>
-        <p th:text="'Trade Time: ' + ${tradeResponse.tradeDate}"></p>
-        <p th:text="'Total: ' + ${tradeResponse.totalPrice}"></p>
+        <div class="container">
+            <br/><h1>== Invoice After Returns ==</h1>
 
-        <ul th:each="item : ${tradeResponse.tradeList}">
-            <li th:text="'Product: ' + ${item.coffeeName} + ', Amount: ' + ${item.amount} + ', Price: ' + ${item.price} + ', Subtotal: ' + ${item.subtotal}" />
-        </ul>
-        
-        <form action="/branch-home" method="POST">
-            <button type="submit">Back to Home</button>
-        </form>
-    
+            <p th:text="'Trade ID: ' + ${tradeResponse.tradeId}"></p>
+            <p th:text="'Trade Time: ' + ${tradeResponse.tradeDate}"></p>
+            <p th:text="'Total: ' + ${tradeResponse.totalPrice}"></p>
+
+            <ul th:each="item : ${tradeResponse.tradeList}">
+                <li th:text="'Product: ' + ${item.coffeeName} + ', Amount: ' + ${item.amount} + ', Price: ' + ${item.price} + ', Subtotal: ' + ${item.subtotal}" />
+            </ul>
+            
+            <form action="/branch-home" method="POST">
+                <button type="submit">Back to Home</button>
+            </form>
+        </div>
     </body>
 </html>
